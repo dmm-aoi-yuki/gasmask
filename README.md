@@ -45,3 +45,6 @@ A great source of curated hosts files can be found at https://github.com/StevenB
 
 ## Building Gas Mask
 Gas Mask can be built with Xcode 15 or later.
+
+- Universal build (arm64 + x86_64): `./build.sh`
+- Apple Silicon build (arm64): `./build-arm.sh`
