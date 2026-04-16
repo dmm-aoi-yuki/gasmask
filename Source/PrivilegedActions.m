@@ -118,7 +118,10 @@ static AuthorizationRef authorizationRef;
 {
 	AuthorizationFlags flags = kAuthorizationFlagDefaults;
 	
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	OSStatus status = AuthorizationExecuteWithPrivileges(authorizationRef, command, flags, (char **)arguments, NULL);
+	#pragma clang diagnostic pop
 	
 	[NSThread sleepForTimeInterval:1];
 	

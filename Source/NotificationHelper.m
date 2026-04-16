@@ -12,10 +12,13 @@
 
 + (void)notify:(NSString*)title message:(NSString*)message
 {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
     notification.informativeText = message;
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    #pragma clang diagnostic pop
 }
 
 @end

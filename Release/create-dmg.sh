@@ -1,11 +1,18 @@
 #!/bin/sh
 
-VOLUME_NAME="Gas Mask 0.6"
-APP_PATH="./Gas Mask.app"
-SRC="dmg_src"
-DMG_TEMP_NAME="Gas Mask 0.6 temp.dmg"
-DMG_NAME="Gas Mask 0.6.dmg"
-BACKGROUND_FILE="DMG Background.png"
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
+OUTPUT_DIR=${OUTPUT_DIR:-"$SCRIPT_DIR/../dist"}
+VOLUME_NAME=${VOLUME_NAME:-"Gas Mask"}
+APP_PATH=${APP_PATH:-"$SCRIPT_DIR/../build/Release/Gas Mask.app"}
+DMG_STEM=${DMG_STEM:-"Gas Mask"}
+SRC="$OUTPUT_DIR/dmg_src"
+DMG_TEMP_NAME="$OUTPUT_DIR/$DMG_STEM.temp.dmg"
+DMG_NAME="$OUTPUT_DIR/${DMG_NAME:-$DMG_STEM.dmg}"
+BACKGROUND_FILE="$SCRIPT_DIR/DMG Background.png"
+
+mkdir -p "$OUTPUT_DIR"
 
 test -f $SRC && rm -f $SRC
 mkdir $SRC
@@ -32,7 +39,7 @@ cp "$BACKGROUND_FILE" "$MOUNT_DIR/.background/custom_background.png"
 
 # run applescript
 echo "Running applescript..."
-VOLUME_NAME=$VOLUME_NAME osascript process_disk_image.applescript
+VOLUME_NAME=$VOLUME_NAME osascript "$SCRIPT_DIR/process_disk_image.applescript"
 
 # Make sure it's not world writeable
 echo "Fixing permissions..."

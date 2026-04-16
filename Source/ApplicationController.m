@@ -26,6 +26,7 @@
 #import "LocalHostsController.h"
 #import "RemoteHostsController.h"
 #import "NotificationHelper.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <Sparkle/Sparkle.h>
 
 @interface ApplicationController ()
@@ -37,6 +38,9 @@
 @interface ApplicationController(Private)
 - (void)initStructure;
 - (void)initEditorWindow;
+- (void)activatePreviousFile:(NSNotification *)note;
+- (void)activateNextFile:(NSNotification *)note;
+- (void)notifyOfFileRestored:(NSNotification *)note;
 - (void)notifyHostsChange:(Hosts*)hosts;
 - (void)showApplicationInDock;
 - (void)hideApplicationFromDock;
@@ -49,6 +53,23 @@
 
 
 static ApplicationController *sharedInstance = nil;
+
+static BOOL shouldConfigureSparkleUpdater(void)
+{
+	NSBundle *mainBundle = [NSBundle mainBundle];
+	NSString *feedURL = [mainBundle objectForInfoDictionaryKey:@"SUFeedURL"];
+	NSString *publicEDKey = [mainBundle objectForInfoDictionaryKey:@"SUPublicEDKey"];
+
+	if (feedURL == nil || [feedURL length] == 0) {
+		return NO;
+	}
+
+	if (publicEDKey == nil || [publicEDKey length] == 0) {
+		return NO;
+	}
+
+	return ![publicEDKey isEqualToString:@"REPLACE_WITH_EDDSA_PUBLIC_KEY"];
+}
 
 + (ApplicationController*)defaultInstance
 {
@@ -64,7 +85,7 @@ static ApplicationController *sharedInstance = nil;
 		shouldQuit = YES;
 
 		BOOL isTesting = NSClassFromString(@"XCTestCase") != nil;
-		if (!isTesting) {
+		if (!isTesting && shouldConfigureSparkleUpdater()) {
 			_updaterController = [[SPUStandardUpdaterController alloc]
 								  initWithStartingUpdater:YES
 								  updaterDelegate:nil
@@ -145,10 +166,12 @@ static ApplicationController *sharedInstance = nil;
 {
 	NSOpenPanel *panel = [NSOpenPanel openPanel];
 	
-    NSArray *fileTypes = [NSArray arrayWithObject:HostsFileExtension];
-    [panel setAllowedFileTypes:fileTypes];
-    int result = [panel runModal];
-    if (result == NSOKButton) {
+	UTType *hostsFileType = [UTType typeWithFilenameExtension:HostsFileExtension];
+	if (hostsFileType != nil) {
+		[panel setAllowedContentTypes:@[hostsFileType]];
+	}
+    NSModalResponse result = [panel runModal];
+    if (result == NSModalResponseOK) {
 		[self createHostsFileFromLocalURL:[[panel URLs] lastObject]];
 	}
 }
@@ -173,6 +196,7 @@ static ApplicationController *sharedInstance = nil;
 
 	checkForUpdatesMenuItem.target = _updaterController;
 	checkForUpdatesMenuItem.action = @selector(checkForUpdates:);
+	[checkForUpdatesMenuItem setEnabled:(_updaterController != nil)];
 
 	[NSApp setServicesProvider:self];
 

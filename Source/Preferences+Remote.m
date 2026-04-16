@@ -40,7 +40,7 @@
 
 + (int)remoteHostsUpdateInterval
 {
-	return [[[self instance] defaults] integerForKey:RemoteHostsUpdateIntervalPrefKey];
+	return (int)[[[self instance] defaults] integerForKey:RemoteHostsUpdateIntervalPrefKey];
 }
 
 + (void)setRemoteHostsUpdateInterval:(int)interval

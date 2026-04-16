@@ -97,18 +97,25 @@ struct UpdateTab: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Toggle("Automatically check for updates", isOn: Binding(
-                get: { sparkleObserver.automaticChecksEnabled },
-                set: { sparkleObserver.setAutomaticChecks($0) }
-            ))
+            if sparkleObserver.updaterAvailable {
+                Toggle("Automatically check for updates", isOn: Binding(
+                    get: { sparkleObserver.automaticChecksEnabled },
+                    set: { sparkleObserver.setAutomaticChecks($0) }
+                ))
 
-            Text(sparkleObserver.lastCheckDateFormatted)
-                .font(.caption)
+                Text(sparkleObserver.lastCheckDateFormatted)
+                    .font(.caption)
 
-            Button("Check Now") {
-                sparkleObserver.checkForUpdates()
+                Button("Check Now") {
+                    sparkleObserver.checkForUpdates()
+                }
+                .disabled(!sparkleObserver.canCheckForUpdates)
+            } else {
+                Text("In-app updates are currently disabled for this fork.")
+                Text("Publish new builds through GitHub Releases until a Sparkle appcast and signing keys are configured.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
-            .disabled(!sparkleObserver.canCheckForUpdates)
         }
         .padding(20)
     }

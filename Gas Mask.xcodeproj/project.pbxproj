@@ -1159,7 +1159,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.clockwise.gmask.launcher;
 				PRODUCT_NAME = Launcher;
 				SDKROOT = macosx;
-				asd = x86_64;
 			};
 			name = Debug;
 		};
@@ -1195,7 +1194,6 @@
 				PRODUCT_NAME = Launcher;
 				SDKROOT = macosx;
 				ZERO_LINK = NO;
-				asd = x86_64;
 			};
 			name = Release;
 		};
@@ -1211,10 +1209,6 @@
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1246,11 +1240,8 @@
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
-				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Gas_Mask_Prefix.pch;

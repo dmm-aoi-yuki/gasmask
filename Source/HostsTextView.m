@@ -111,7 +111,7 @@
                                               granularity:granularity];
     
     NSEvent *event = [NSApp currentEvent];
-	if ([event type] == NSLeftMouseUp && [event clickCount] == 2) {
+	if ([event type] == NSEventTypeLeftMouseUp && [event clickCount] == 2) {
         return [self selectRangeFromDoubleClick:proposedSelRange.location range:range];
     }
     
@@ -266,8 +266,8 @@
 
 			NSRange nameRange = NSMakeRange(namesRange.location, NSNotFound);
 
-			int end = NSMaxRange(namesRange);
-			for (int i=namesRange.location; i<end; i++) {
+			NSUInteger end = NSMaxRange(namesRange);
+			for (NSUInteger i=namesRange.location; i<end; i++) {
 				unichar character = [contents characterAtIndex:i];
 
 				if (nameRange.length == NSNotFound) {
@@ -388,8 +388,8 @@
 	unichar previousCharacter;
 	unichar character;
 	
-	int length = NSMaxRange(nameRange);
-	for (int i=nameRange.location; i<length; i++) {
+	NSUInteger length = NSMaxRange(nameRange);
+	for (NSUInteger i=nameRange.location; i<length; i++) {
 		character = [contents characterAtIndex:i];
 		
 		// First or last characher of the name
@@ -453,14 +453,14 @@
     NSInteger clickPosition = location - range.location;
     
     NSInteger length = [selectedString length];
-    for (int i=clickPosition; i<length; i++) {
+	for (NSInteger i=clickPosition; i<length; i++) {
         unichar character = [selectedString characterAtIndex:i];
         if (character == '.') {
             range.length = i;
             break;
         }
     }
-    for (int i=clickPosition; i>0; i--) {
+	for (NSInteger i=clickPosition; i>0; i--) {
         unichar character = [selectedString characterAtIndex:i];
         if (character == '.') {
             range.location += i + 1;

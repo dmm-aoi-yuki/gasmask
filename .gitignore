@@ -1,2 +1,20 @@
-xcuserdata
-build
+.DS_Store
+.vscode/settings.json
+
+# Local tooling
+.venv/
+.tmp/
+.tmp/**
+!.tmp/.gitkeep
+
+# Build artifacts
+build/
+dist/
+
+# Xcode user-specific files
+xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+*.mode1v3
+*.pbxuser
+*.perspectivev3

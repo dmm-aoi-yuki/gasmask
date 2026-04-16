@@ -27,12 +27,12 @@
 {
 	NSString *description = [[NSThread currentThread] description];
 	NSRange range = [description rangeOfString:@"num = "];
-	int numLength = [description length] - range.location - range.length;
+	NSUInteger numLength = [description length] - range.location - range.length;
     range.location = range.location + range.length;
     range.length   = numLength - 1;
 	
 	description = [description substringWithRange:range];
-    return [description integerValue];
+    return (int)[description integerValue];
 }
 
 @end

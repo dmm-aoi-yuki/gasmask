@@ -23,12 +23,12 @@
 BOOL _openedAtLogin = NO;
 BOOL _reopened = NO;
 
-BOOL openedAtLogin()
+BOOL openedAtLogin(void)
 {
 	return _openedAtLogin;
 }
 
-BOOL reopened()
+BOOL reopened(void)
 {
 	return _reopened;
 }

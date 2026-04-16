@@ -1,50 +1,94 @@
 # Gas Mask
-[![Build Status](https://github.com/2ndalpha/gasmask/actions/workflows/push.yml/badge.svg)](https://github.com/2ndalpha/gasmask/actions/workflows/push.yml)
 
-Gas Mask is a simple hosts file manager for macOS.
-It allows editing of host files and switching between them.
+[![Build Status](https://github.com/dmm-aoi-yuki/gasmask/actions/workflows/push.yml/badge.svg)](https://github.com/dmm-aoi-yuki/gasmask/actions/workflows/push.yml)
+[![Latest Release](https://img.shields.io/github/v/release/dmm-aoi-yuki/gasmask?display_name=tag)](https://github.com/dmm-aoi-yuki/gasmask/releases)
+[![License: GPL v2 or later](https://img.shields.io/badge/license-GPL%20v2%20or%20later-blue.svg)](LICENSE)
 
-## System requirements
-Requires macOS 13 (Ventura) or later.
+Gas Mask は、macOS 向けのシンプルな hosts ファイルマネージャーです。
+ローカル hosts の編集、リモート hosts の同期、複数 hosts の切り替えを GUI で扱えます。
 
-## Download
-[Download latest version (0.8.6)](https://github.com/2ndalpha/gasmask/releases/download/0.8.6/gas_mask_0.8.6.zip)
+このリポジトリは、更新が止まっている本家 Gas Mask をベースに Apple Silicon と現行 Xcode 向けの保守を続ける fork です。
 
-## Installation
-Drag the application from Downloads into the Applications folder. The first time you launch it, it will ask for your password, because it needs escalated privileges to modify your `/etc/hosts` file.
+## 概要
 
-## How it works
-Gas Mask monitors `/etc/hosts` system file and updates it with your activated hosts file.
+Gas Mask は `/etc/hosts` を監視し、選択中の hosts ファイルの内容をシステムへ反映します。
 
-Gas Mask stores your custom hosts files in `~/Library/Gas Mask` directory.
+- ローカル hosts ファイルの編集
+- リモート hosts ファイルの定期同期
+- 複数の hosts ファイルの素早い切り替え
+- 複数ソースを束ねる Combined hosts の利用
 
-Application log can be found in `~/Library/Logs/Gas Mask.log`. It's worth having a look for errors in there when posting an issue.
+カスタム hosts ファイルは `~/Library/Gas Mask` に保存されます。
+ログは `~/Library/Logs/Gas Mask.log` に出力されます。問題報告時はこのログを確認すると原因を追いやすくなります。
 
-## User Guide
-Gas Mask usually operates in the background. It adds a menu bar icon, where you can access the main editor window and quickly switch between hosts files.
+## 動作環境
 
-The main editor consists of three parts: Toolbar, a list of your hosts files on the left, and file editor on the right. Initially you will have a single file called `Original file` under `Local`, which is a copy of your original /etc/hosts file.
+- macOS 13 Ventura 以降
 
-To add new files, click `Create(+)` button in the toolbar and select the type of file (Local, Remote or Combined).
+## ダウンロード
 
-To remove a file, select it and press the `Remove` button in toolbar.
+- 最新版は [GitHub Releases](https://github.com/dmm-aoi-yuki/gasmask/releases) から入手してください。
+- 初回の arm64 公開版は `0.8.6-arm64.1` を想定しています。
 
-To activate a file, select it and press `Activate` button in toolbar, or select it from the menu bar icon when the editor is hidden. Gas Mask will update the `/etc/hosts` file with the currently activated file. The active file is marked with a check in the editor list, and can also be displayed next to the Gas Mask menu bar icon (Preferences > Show Host File Name in Status Bar)
+## インストール
 
-#### Local files
-These are ordinary local files that you can edit.
+1. ダウンロードしたアプリを Applications フォルダへ移動します。
+2. 初回起動時に管理者権限を要求されます。
 
-#### Remote files
-These are files that Gas Mask downloads and synchronizes from remote URLs. You can adjust how often they should update in Preferences, or force an update from the menu bar icon. You cannot edit these files, as they are overwritten by updates.
+`/etc/hosts` を更新するため、初回起動時にパスワード入力が必要です。
 
-#### Combined files
-This is where Gas Mask shines compared to other hosts managers for macOS. A combined file doesn't contain hosts entries, but a list of local and remote files.
+## 使い方
 
-## Where to find hosts files
-A great source of curated hosts files can be found at https://github.com/StevenBlack/hosts
+Gas Mask は通常バックグラウンドで動作し、メニューバーにアイコンを表示します。メニューバーからメイン画面を開いたり、アクティブな hosts ファイルを素早く切り替えたりできます。
 
-## Building Gas Mask
-Gas Mask can be built with Xcode 15 or later.
+メイン画面は、ツールバー、左側の hosts ファイル一覧、右側のエディタで構成されます。初期状態では `Local` 配下に `Original file` があり、これは元の `/etc/hosts` のコピーです。
 
-- Universal build (arm64 + x86_64): `./build.sh`
-- Apple Silicon build (arm64): `./build-arm.sh`
+### 基本操作
+
+- 追加: ツールバーの `Create (+)` から `Local`、`Remote`、`Combined` を選択
+- 削除: 対象ファイルを選択して `Remove` を実行
+- 有効化: 対象ファイルを選択して `Activate` を実行
+
+有効化されたファイルは一覧でチェック表示され、設定の `Preferences > Show Host File Name in Status Bar` を有効にするとメニューバーにもファイル名を表示できます。
+
+### ファイル種別
+
+#### Local
+
+通常のローカル hosts ファイルです。内容を直接編集できます。
+
+#### Remote
+
+指定した URL からダウンロードして同期する hosts ファイルです。更新間隔は Preferences で設定でき、メニューバーから手動更新もできます。同期時に上書きされるため、直接編集はできません。
+
+#### Combined
+
+複数の Local / Remote hosts をまとめて扱うためのファイルです。hosts エントリそのものではなく、参照する hosts ファイルの組み合わせを保持します。
+
+## hosts ファイルの入手先
+
+公開 hosts リストの例として、次のリポジトリが利用できます。
+
+- https://github.com/StevenBlack/hosts
+
+## ビルド
+
+Gas Mask のビルドには Xcode 15 以降が必要です。
+
+- Apple Silicon 向け標準ビルド: `./build.sh`
+- Apple Silicon 向け互換エイリアス: `./build-arm.sh`
+- 旧来の universal build (arm64 + x86_64): `./build-universal.sh`
+- リリース用 zip 生成: `CONFIGURATION=Release ARCHS=arm64 ./package-release.sh`
+
+リリース作業の詳細は [docs/RELEASING.md](docs/RELEASING.md) を参照してください。
+
+## 配布と更新
+
+- 配布は GitHub Releases を基準に行います。
+- アプリ内自動更新は fork 側の appcast と署名鍵を整備するまで無効化しています。
+- 配布用のリリースノート雛形は [docs/release-notes/0.8.6-arm64.1.md](docs/release-notes/0.8.6-arm64.1.md) に置いています。
+
+## ライセンス
+
+このプロジェクトは GNU General Public License v2 またはそれ以降の条件で提供されています。
+詳細は [LICENSE](LICENSE) を参照してください。GPL に従う限り、商用利用も可能です。

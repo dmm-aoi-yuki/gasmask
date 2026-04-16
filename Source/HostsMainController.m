@@ -455,11 +455,11 @@ static HostsMainController *sharedInstance = nil;
 
 - (NSArray*)allHostsFilesGrouped
 {
-	int nrControllers = [controllers count];
+	NSUInteger nrControllers = [controllers count];
 	
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:nrControllers];
 	
-	for (int i=0; i<nrControllers; i++) {
+	for (NSUInteger i=0; i<nrControllers; i++) {
 		NSObject<HostsControllerProtocol> *controller = [controllers objectAtIndex:i];
 		
 		[array addObject:[Pair pairWithLeft:[controller name] right:[controller hostsFiles]]];
@@ -582,10 +582,10 @@ static HostsMainController *sharedInstance = nil;
 
 - (void)hostsFileRemoved:(Hosts*)hosts controller:(NSObject<HostsControllerProtocol>*)controller
 {
-	int index = [controllers indexOfObject:controller];
+	NSUInteger index = [controllers indexOfObject:controller];
 	NSArray *files = [[[self content] objectAtIndex:index] children];
 	
-	int i;
+	NSUInteger i;
 	for (i=0; i<[files count]; i++) {
 		if ([[files objectAtIndex:i] isEqual:hosts]) {
 			break;
@@ -725,7 +725,7 @@ static HostsMainController *sharedInstance = nil;
 
 - (void)addHostsFile:(Hosts*)hosts forController:(NSObject<HostsControllerProtocol>*)controller
 {
-	int index = [controllers indexOfObject:controller];
+	NSUInteger index = [controllers indexOfObject:controller];
 	
 	NSIndexPath *indexPath = [[NSIndexPath indexPathWithIndex:index] indexPathByAddingIndex:[[controller hostsFiles] count]-1];
 	[self insertObject:hosts atArrangedObjectIndexPath:indexPath];

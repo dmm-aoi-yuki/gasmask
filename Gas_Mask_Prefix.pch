@@ -69,8 +69,8 @@
 
 	#import "DebugUtil.h"
 
-	BOOL openedAtLogin();
-	BOOL reopened();
+	BOOL openedAtLogin(void);
+	BOOL reopened(void);
 
     #define SuppressPerformSelectorLeakWarning(Stuff) \
         do { \

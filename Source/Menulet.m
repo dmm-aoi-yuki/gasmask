@@ -101,7 +101,9 @@
 -(IBAction)showMenu:(id)sender
 {	
 	HostsMenu *menu = [[HostsMenu alloc] initWithExtras];
-	[statusItem popUpStatusItemMenu:menu];
+    [statusItem setMenu:menu];
+    [[statusItem button] performClick:nil];
+    [statusItem setMenu:nil];
 }
 
 @end

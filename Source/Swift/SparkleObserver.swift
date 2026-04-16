@@ -10,6 +10,10 @@ final class SparkleObserver: ObservableObject {
 
     private let updater: SPUUpdater?
 
+    var updaterAvailable: Bool {
+        updater != nil
+    }
+
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
