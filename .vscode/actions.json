@@ -1,0 +1,15 @@
+{
+  "$schema": "./actions.schema.json",
+  "actions": [
+    {
+      "id": "update-app-icon",
+      "section": "Assets",
+      "name": "Update App Icon",
+      "command": "./update-app-icon.sh",
+      "cwd": "${workspaceFolder}",
+      "description": "Regenerate AppIcon PNG assets from the source SVG."
+    }
+  ],
+  "sections": ["Assets"],
+  "commonOnNewTerminalCommand": "source .venv/bin/activate"
+}

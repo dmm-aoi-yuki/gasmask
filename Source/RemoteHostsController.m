@@ -45,12 +45,12 @@
 
 - (NSString*) name
 {
-	return @"Remote";
+	return NSLocalizedString(@"Remote", @"Remote hosts controller name");
 }
 
 - (NSString *)groupName
 {
-	return @"REMOTE";
+	return NSLocalizedString(@"REMOTE", @"Remote hosts group name");
 }
 
 - (void)loadFiles

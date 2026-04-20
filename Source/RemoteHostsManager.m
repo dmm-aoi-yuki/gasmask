@@ -129,8 +129,8 @@
 
 	if ([downloader error]) {
 		if ([[downloader error] type] == FileNotFound && (![hosts error] || [[hosts error] type] != FileNotFound)) {
-            [NotificationHelper notify:@"Failed to Download"
-                               message:[NSString stringWithFormat:@"Remote hosts file \"%@\" not found on the remote server.", [hosts name]]];
+            [NotificationHelper notify:NSLocalizedString(@"Failed to Download", @"Notification title for download failure")
+                               message:[NSString stringWithFormat:NSLocalizedString(@"Remote hosts file \"%@\" not found on the remote server.", @"Notification message when remote file is not found"), [hosts name]]];
 		}
 
 		[hosts setError:[downloader error]];
@@ -142,7 +142,7 @@
 	[hostsController saveHosts:hosts];
 
 	if (![downloader initialLoad] && ![downloader error]) {
-        [NotificationHelper notify:@"Hosts File Updated"  message:[hosts name]];
+        [NotificationHelper notify:NSLocalizedString(@"Hosts File Updated", @"Notification title when hosts file is updated")  message:[hosts name]];
 	}
 
 	[self removeDownloader:downloader];

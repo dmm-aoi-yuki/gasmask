@@ -28,7 +28,9 @@ if [ ! -d "$appicon_dir" ]; then
 	exit 1
 fi
 
-tmpdir="$(mktemp -d)"
+tmp_root="$script_dir/.tmp"
+mkdir -p "$tmp_root"
+tmpdir="$(mktemp -d "$tmp_root/update-app-icon.XXXXXX")"
 cleanup() {
 	rm -rf "$tmpdir"
 }
@@ -52,15 +54,32 @@ if [ ! "$source_svg_path" -ef "$dest_svg_path" ]; then
 	cp "$source_svg_path" "$dest_svg_path"
 fi
 
+hidden_arm64_svg_path="$tmpdir/app_icon_source.hidden-arm64.svg"
+create_hidden_arm64_svg() {
+	perl -0pe 's/id="arm64"(?![^>]*opacity=)/id="arm64" opacity="0"/' "$dest_svg_path" > "$hidden_arm64_svg_path"
+}
+
 render() {
 	local size="$1"
 	local output_name="$2"
+	local render_svg_path="$dest_svg_path"
+	local render_svg_name
 	local render_dir="$tmpdir/render-$size-$$"
-	local rendered_path="$render_dir/$source_svg_name.png"
+	local rendered_path
+
+	if [ "$size" -lt 128 ]; then
+		if [ ! -f "$hidden_arm64_svg_path" ]; then
+			create_hidden_arm64_svg
+		fi
+		render_svg_path="$hidden_arm64_svg_path"
+	fi
+
+	render_svg_name="$(basename "$render_svg_path")"
+	rendered_path="$render_dir/$render_svg_name.png"
 
 	rm -rf "$render_dir"
 	mkdir -p "$render_dir"
-	qlmanage -t -s "$size" -o "$render_dir" "$dest_svg_path" >/dev/null
+	qlmanage -t -s "$size" -o "$render_dir" "$render_svg_path" >/dev/null
 	wait_for_rendered_png "$rendered_path"
 	mv "$rendered_path" "$appicon_dir/$output_name"
 	printf 'Updated %s (%sx%s)\n' "$output_name" "$size" "$size"

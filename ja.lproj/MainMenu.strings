@@ -1,0 +1,32 @@
+/* Class = "NSMenuItem"; title = "About Gas Mask"; ObjectID = "58"; */
+"58.title" = "Gas Mask について";
+
+/* Class = "NSMenuItem"; title = "Report an Issue..."; ObjectID = "558"; */
+"558.title" = "問題を報告...";
+
+/* Class = "NSMenuItem"; title = "Check for Updates..."; ObjectID = "601"; */
+"601.title" = "アップデートを確認...";
+
+/* Class = "NSMenuItem"; title = "Donate..."; ObjectID = "603"; */
+"603.title" = "寄付...";
+
+/* Class = "NSMenuItem"; title = "Create"; ObjectID = "82"; */
+"82.title" = "作成";
+
+/* Class = "NSMenuItem"; title = "Create from URL..."; ObjectID = "589"; */
+"589.title" = "URL から作成...";
+
+/* Class = "NSMenuItem"; title = "Create Combined File"; ObjectID = "611"; */
+"611.title" = "結合ファイルを作成";
+
+/* Class = "NSMenuItem"; title = "Activate"; ObjectID = "614"; */
+"614.title" = "有効にする";
+
+/* Class = "NSMenuItem"; title = "Remove"; ObjectID = "547"; */
+"547.title" = "削除";
+
+/* Class = "NSMenuItem"; title = "Save"; ObjectID = "75"; */
+"75.title" = "保存";
+
+/* Class = "NSMenuItem"; title = "Gas Mask Help"; ObjectID = "492"; */
+"492.title" = "Gas Mask ヘルプ";

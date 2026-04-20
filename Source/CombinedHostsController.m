@@ -23,7 +23,7 @@
 #import "FileUtil.h"
 #import "Preferences.h"
 
-#define kDefaultCombinedHostsFileName @"Combined Hosts File"
+#define kDefaultCombinedHostsFileName NSLocalizedString(@"Combined Hosts File", @"Default name for new combined hosts file")
 
 @interface CombinedHostsController (Private)
 
@@ -77,12 +77,12 @@
 
 - (NSString*) name
 {
-	return @"Combined";
+	return NSLocalizedString(@"Combined", @"Combined hosts controller name");
 }
 
 - (NSString *)groupName
 {
-	return @"COMBINED";
+	return NSLocalizedString(@"COMBINED", @"Combined hosts group name");
 }
 
 - (Hosts*)createNewHostsFile

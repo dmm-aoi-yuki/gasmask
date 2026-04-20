@@ -54,12 +54,12 @@
 	if ([self isVersion04Structure]) {
 		logDebug(@"Has version 0.4 structure");
 		
-		[PrivilegedActions authorizeWithPrompt:@"Gas Mask needs to convert data from version 0.4.\n"];
+		[PrivilegedActions authorizeWithPrompt:NSLocalizedString(@"Gas Mask needs to convert data from version 0.4.\n", @"Authorization prompt for version 0.4 data conversion")];
 		
 		if (![PrivilegedActions authorized]) {
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = @"Unable to Convert From Version 0.4";
-			alert.informativeText = @"Gas Mask is unable to convert data from version 0.4 without root privileges. Gas Mask is closing.";
+			alert.messageText = NSLocalizedString(@"Unable to Convert From Version 0.4", @"Alert title for failed version conversion");
+			alert.informativeText = NSLocalizedString(@"Gas Mask is unable to convert data from version 0.4 without root privileges. Gas Mask is closing.", @"Alert message for failed version conversion");
 			[alert runModal];
 			[[NSApplication sharedApplication] terminate:self];
 		}

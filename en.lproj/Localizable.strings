@@ -1,0 +1,57 @@
+/* HostsMainController - Alert */
+"Remove file?" = "Remove file?";
+"Are you sure you want to remove the file?\nYou can not undo it." = "Are you sure you want to remove the file?\nYou can not undo it.";
+"OK" = "OK";
+"Cancel" = "Cancel";
+
+/* HostsMenu - Menu Items */
+"Close Editor Window" = "Close Editor Window";
+"Show Editor Window" = "Show Editor Window";
+"Preferences..." = "Preferences...";
+"Update Remote Files" = "Update Remote Files";
+"Quit Gas Mask" = "Quit Gas Mask";
+
+/* Menulet - Status Bar */
+"Gas Mask" = "Gas Mask";
+
+/* ApplicationController - Notifications */
+"Hosts File Restored" = "Hosts File Restored";
+"External application has changed the hosts file.\nGas Mask restored previous state." = "External application has changed the hosts file.\nGas Mask restored previous state.";
+"Hosts File Activated" = "Hosts File Activated";
+
+/* StructureConverter - Version Migration */
+"Gas Mask needs to convert data from version 0.4.\n" = "Gas Mask needs to convert data from version 0.4.\n";
+"Unable to Convert From Version 0.4" = "Unable to Convert From Version 0.4";
+"Gas Mask is unable to convert data from version 0.4 without root privileges. Gas Mask is closing." = "Gas Mask is unable to convert data from version 0.4 without root privileges. Gas Mask is closing.";
+
+/* HostsDownloader - Errors */
+"Failed to download the hosts file" = "Failed to download the hosts file";
+"Can't download the hosts file. It contains HTML page." = "Can't download the hosts file. It contains HTML page.";
+"Can't download the hosts file. It contains image." = "Can't download the hosts file. It contains image.";
+"Can't download the hosts file. It contains unknown content." = "Can't download the hosts file. It contains unknown content.";
+
+/* RemoteHostsManager - Notifications */
+"Failed to Download" = "Failed to Download";
+"Remote hosts file \"%@\" not found on the remote server." = "Remote hosts file \"%@\" not found on the remote server.";
+"Hosts File Updated" = "Hosts File Updated";
+
+/* AbstractHostsController - Authorization */
+"Gas Mask needs to restore your selected host file.\n" = "Gas Mask needs to restore your selected host file.\n";
+"Gas Mask needs to modify system hosts file.\n" = "Gas Mask needs to modify system hosts file.\n";
+
+/* AbstractHostsManager - Network Error */
+"Can't update hosts file because you are not connected to the Internet." = "Can't update hosts file because you are not connected to the Internet.";
+
+/* LocalHostsController */
+"Hosts File" = "Hosts File";
+"Local" = "Local";
+"LOCAL" = "LOCAL";
+
+/* RemoteHostsController */
+"Remote" = "Remote";
+"REMOTE" = "REMOTE";
+
+/* CombinedHostsController */
+"Combined Hosts File" = "Combined Hosts File";
+"Combined" = "Combined";
+"COMBINED" = "COMBINED";

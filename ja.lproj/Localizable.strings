@@ -1,0 +1,57 @@
+/* HostsMainController - Alert */
+"Remove file?" = "ファイルを削除しますか？";
+"Are you sure you want to remove the file?\nYou can not undo it." = "本当にファイルを削除しますか？\nこの操作は取り消せません。";
+"OK" = "OK";
+"Cancel" = "キャンセル";
+
+/* HostsMenu - Menu Items */
+"Close Editor Window" = "エディタウインドウを閉じる";
+"Show Editor Window" = "エディタウインドウを表示";
+"Preferences..." = "環境設定...";
+"Update Remote Files" = "リモートファイルを更新";
+"Quit Gas Mask" = "Gas Mask を終了";
+
+/* Menulet - Status Bar */
+"Gas Mask" = "Gas Mask";
+
+/* ApplicationController - Notifications */
+"Hosts File Restored" = "Hosts ファイルを復元しました";
+"External application has changed the hosts file.\nGas Mask restored previous state." = "外部アプリケーションが hosts ファイルを変更しました。\nGas Mask は以前の状態に復元しました。";
+"Hosts File Activated" = "Hosts ファイルを有効化しました";
+
+/* StructureConverter - Version Migration */
+"Gas Mask needs to convert data from version 0.4.\n" = "Gas Mask はバージョン 0.4 のデータを変換する必要があります。\n";
+"Unable to Convert From Version 0.4" = "バージョン 0.4 からの変換に失敗しました";
+"Gas Mask is unable to convert data from version 0.4 without root privileges. Gas Mask is closing." = "管理者権限がないため、バージョン 0.4 のデータを変換できません。Gas Mask を終了します。";
+
+/* HostsDownloader - Errors */
+"Failed to download the hosts file" = "hosts ファイルのダウンロードに失敗しました";
+"Can't download the hosts file. It contains HTML page." = "hosts ファイルをダウンロードできません。HTML ページが含まれています。";
+"Can't download the hosts file. It contains image." = "hosts ファイルをダウンロードできません。画像が含まれています。";
+"Can't download the hosts file. It contains unknown content." = "hosts ファイルをダウンロードできません。不明なコンテンツが含まれています。";
+
+/* RemoteHostsManager - Notifications */
+"Failed to Download" = "ダウンロード失敗";
+"Remote hosts file \"%@\" not found on the remote server." = "リモート hosts ファイル「%@」がリモートサーバーに見つかりません。";
+"Hosts File Updated" = "Hosts ファイルを更新しました";
+
+/* AbstractHostsController - Authorization */
+"Gas Mask needs to restore your selected host file.\n" = "Gas Mask は選択された hosts ファイルを復元する必要があります。\n";
+"Gas Mask needs to modify system hosts file.\n" = "Gas Mask はシステムの hosts ファイルを変更する必要があります。\n";
+
+/* AbstractHostsManager - Network Error */
+"Can't update hosts file because you are not connected to the Internet." = "インターネットに接続されていないため、hosts ファイルを更新できません。";
+
+/* LocalHostsController */
+"Hosts File" = "Hosts ファイル";
+"Local" = "ローカル";
+"LOCAL" = "ローカル";
+
+/* RemoteHostsController */
+"Remote" = "リモート";
+"REMOTE" = "リモート";
+
+/* CombinedHostsController */
+"Combined Hosts File" = "結合 Hosts ファイル";
+"Combined" = "結合";
+"COMBINED" = "結合";

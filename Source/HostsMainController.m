@@ -269,10 +269,10 @@ static HostsMainController *sharedInstance = nil;
 - (void)removeSelectedHostsFile:(id)sender
 {
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:@"OK"];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert setMessageText:@"Remove file?"];
-    [alert setInformativeText:@"Are you sure you want to remove the file?\nYou can not undo it."];
+    [alert addButtonWithTitle:NSLocalizedString(@"OK", @"Button title")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Button title")];
+    [alert setMessageText:NSLocalizedString(@"Remove file?", @"Alert title when removing a hosts file")];
+    [alert setInformativeText:NSLocalizedString(@"Are you sure you want to remove the file?\nYou can not undo it.", @"Alert message when removing a hosts file")];
     [alert setAlertStyle:NSAlertStyleWarning];
     
     if ([alert runModal] == NSAlertFirstButtonReturn) {

@@ -312,13 +312,13 @@ static BOOL shouldConfigureSparkleUpdater(void)
 
 - (void)notifyOfFileRestored:(NSNotification *)note
 {    
-    [NotificationHelper notify:@"Hosts File Restored"
-                       message:@"External application has changed the hosts file.\nGas Mask restored previous state."];
+    [NotificationHelper notify:NSLocalizedString(@"Hosts File Restored", @"Notification title when hosts file is restored")
+                       message:NSLocalizedString(@"External application has changed the hosts file.\nGas Mask restored previous state.", @"Notification message when hosts file is restored")];
 }
 
 - (void)notifyHostsChange:(Hosts*)hosts
 {
-    [NotificationHelper notify:@"Hosts File Activated" message:[hosts name]];
+    [NotificationHelper notify:NSLocalizedString(@"Hosts File Activated", @"Notification title when hosts file is activated") message:[hosts name]];
 }
 
 - (void)showApplicationInDock

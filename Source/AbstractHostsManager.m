@@ -41,7 +41,7 @@
 	
 	if (![[Network defaultInstance] online]) {
 		Error *error = [[Error alloc] initWithType:NetworkOffline];
-		[error setDescription:@"Can't update hosts file because you are not connected to the Internet."];
+		[error setDescription:NSLocalizedString(@"Can't update hosts file because you are not connected to the Internet.", @"Error when not connected to Internet")];
 		[hosts setError:error];
 		[hosts setExists:NO];
 		[hosts setEnabled:YES];

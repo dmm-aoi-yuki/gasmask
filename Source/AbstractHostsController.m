@@ -124,7 +124,7 @@
     logDebug(@"Restoring hosts file \"%@\" to \"%@\"", [hosts name], HostsFileLocation);
 	
     NSFileManager *manager = [NSFileManager defaultManager];
-    NSString *reason = @"Gas Mask needs to restore your selected host file.\n";
+    NSString *reason = NSLocalizedString(@"Gas Mask needs to restore your selected host file.\n", @"Authorization prompt for restoring hosts file");
     if (![self ensureHostsFileIsWritable: manager withReason:reason]) {
         logDebug(@"System hosts file is not writeable, aborting [file=\"%@\"]", HostsFileLocation);
         return NO;
@@ -308,7 +308,7 @@
 	logDebug(@"Saving hosts file \"%@\" to \"%@\"", [hosts name], HostsFileLocation);
     
 	NSFileManager *manager = [NSFileManager defaultManager];
-    NSString *reason = @"Gas Mask needs to modify system hosts file.\n";
+    NSString *reason = NSLocalizedString(@"Gas Mask needs to modify system hosts file.\n", @"Authorization prompt for modifying system hosts file");
     if (![self ensureHostsFileIsWritable: manager withReason:reason]) {
         return NO;
     }

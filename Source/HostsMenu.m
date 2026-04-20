@@ -120,17 +120,17 @@
 	NSMenuItem *item;
 	
 	if ([controller editorWindowOpened]) {
-		item = [[NSMenuItem alloc] initWithTitle:@"Close Editor Window" action:NULL keyEquivalent:@""];
+		item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Close Editor Window", @"Menu item to close editor window") action:NULL keyEquivalent:@""];
 		[item setAction:@selector(closeEditorWindow:)];
 	}
 	else {
-		item = [[NSMenuItem alloc] initWithTitle:@"Show Editor Window" action:NULL keyEquivalent:@""];
+		item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Show Editor Window", @"Menu item to show editor window") action:NULL keyEquivalent:@""];
 		[item setAction:@selector(openEditorWindow:)];
 	}
 	[item setTarget:controller];
 	[self addItem:item];
 	
-	item = [[NSMenuItem alloc] initWithTitle:@"Preferences..." action:NULL keyEquivalent:@""];
+	item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Preferences...", @"Menu item to open preferences") action:NULL keyEquivalent:@""];
 	[item setAction:@selector(openPreferencesWindow:)];
 	[item setTarget:controller];
 	[self addItem:item];
@@ -138,7 +138,7 @@
 	if ([[HostsMainController defaultInstance] hostsFilesExistForControllerClass:[RemoteHostsController class]]) {
 		[self addItem:[NSMenuItem separatorItem]];
 	
-		item = [[NSMenuItem alloc] initWithTitle:@"Update Remote Files" action:NULL keyEquivalent:@""];
+		item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Update Remote Files", @"Menu item to update remote hosts files") action:NULL keyEquivalent:@""];
 		[item setAction:@selector(updateAndSynchronize:)];
 		[item setTarget:controller];
 		[self addItem:item];
@@ -146,7 +146,7 @@
 	
 	[self addItem:[NSMenuItem separatorItem]];
 	
-	item = [[NSMenuItem alloc] initWithTitle:@"Quit Gas Mask" action:NULL keyEquivalent:@""];
+	item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Quit Gas Mask", @"Menu item to quit application") action:NULL keyEquivalent:@""];
 	[item setAction:@selector(quit:)];
 	[item setTarget:controller];
 	[self addItem:item];

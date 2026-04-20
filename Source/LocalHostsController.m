@@ -23,7 +23,7 @@
 #import "Preferences.h"
 #import "FileUtil.h"
 
-#define kDefaultHostsFileName @"Hosts File"
+#define kDefaultHostsFileName NSLocalizedString(@"Hosts File", @"Default name for new local hosts file")
 #define kHostsDefaultFile @"default.hst"
 
 @interface LocalHostsController (Private)
@@ -48,12 +48,12 @@
 
 - (NSString*) name
 {
-	return @"Local";
+	return NSLocalizedString(@"Local", @"Local hosts controller name");
 }
 
 - (NSString *)groupName
 {
-	return @"LOCAL";
+	return NSLocalizedString(@"LOCAL", @"Local hosts group name");
 }
 
 - (void)loadFiles

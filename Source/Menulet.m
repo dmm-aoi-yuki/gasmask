@@ -36,7 +36,7 @@
     [[statusItem button] setAction:@selector(showMenu:)];
     [[statusItem button] setImage:icon];
     [[statusItem button] setTitle:@""];
-    [[statusItem button] setToolTip:@"Gas Mask"];
+    [[statusItem button] setToolTip:NSLocalizedString(@"Gas Mask", @"Status bar tooltip")];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults addObserver:self

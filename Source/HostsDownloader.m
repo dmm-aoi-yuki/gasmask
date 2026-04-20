@@ -75,7 +75,7 @@
           completionHandler:^(NSData *data, NSURLResponse *urlResponse, NSError *taskError) {
               if (taskError || !data || data.length == 0) {
                   error = [[Error alloc] initWithType:FailedToDownload];
-                  NSString *description = @"Failed to download the hosts file";
+                  NSString *description = NSLocalizedString(@"Failed to download the hosts file", @"Error description for download failure");
                   [error setDescription:description];
                   [error setUrl:url];
                   
@@ -98,10 +98,10 @@
               if (![contentType hasPrefix:kContentTypeText])
               {
                   if ([contentType hasPrefix:kContentTypeHtml]) {
-                      [self addBadContentTypeError:@"Can't download the hosts file. It contains HTML page."];
+                      [self addBadContentTypeError:NSLocalizedString(@"Can't download the hosts file. It contains HTML page.", @"Error when downloaded content is HTML")];
                   }
                   else if ([contentType hasPrefix:kContentTypeImage]) {
-                      [self addBadContentTypeError:@"Can't download the hosts file. It contains image."];
+                      [self addBadContentTypeError:NSLocalizedString(@"Can't download the hosts file. It contains image.", @"Error when downloaded content is an image")];
                   }
                   else {
                       logDebug(@"Content type: %@", contentType);
@@ -190,7 +190,7 @@
 
 - (void)addUnknownContentTypeError
 {
-	[self addBadContentTypeError:@"Can't download the hosts file. It contains unknown content."];
+	[self addBadContentTypeError:NSLocalizedString(@"Can't download the hosts file. It contains unknown content.", @"Error when downloaded content type is unknown")];
 }
 
 @end

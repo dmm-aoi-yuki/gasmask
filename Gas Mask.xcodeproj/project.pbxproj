@@ -144,6 +144,7 @@
 		FF000002000000000000FF01 /* AboutBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000001000000000000FF01 /* AboutBoxView.swift */; };
 		FF000004000000000000FF01 /* AboutBoxPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000003000000000000FF01 /* AboutBoxPresenter.swift */; };
 		FF000006000000000000FF01 /* AboutBoxPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000005000000000000FF01 /* AboutBoxPresenterTests.swift */; };
+		A10000010000000000001001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A10000020000000000001001 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,10 +177,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		089C165DFE840E0CC02AAC07 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A10000030000000000001001 /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1DDD58150DA1D0A300B32029 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A10000040000000000001001 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		A10000050000000000001001 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A10000060000000000001001 /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* Gas_Mask_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gas_Mask_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -897,11 +902,12 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Gas Mask" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
 				en,
+				Base,
+				ja,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA;
 			packageReferences = (
@@ -934,6 +940,7 @@
 				3579F1181114B95300123416 /* Launcher.app in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				A10000010000000000001001 /* Localizable.strings in Resources */,
 				352E04FD106281940071E25B /* Create.png in Resources */,
 				352E04FF106281940071E25B /* Save.png in Resources */,
 				358E0A891A3A1E1A004521D1 /* Remote yosemite@2x.tiff in Resources */,
@@ -1111,7 +1118,8 @@
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				089C165DFE840E0CC02AAC07 /* English */,
+				089C165DFE840E0CC02AAC07 /* en */,
+				A10000030000000000001001 /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1119,9 +1127,19 @@
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1DDD58150DA1D0A300B32029 /* English */,
+				1DDD58150DA1D0A300B32029 /* Base */,
+				A10000040000000000001001 /* ja */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		A10000020000000000001001 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A10000050000000000001001 /* en */,
+				A10000060000000000001001 /* ja */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
