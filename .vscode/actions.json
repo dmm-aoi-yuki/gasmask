@@ -8,8 +8,17 @@
       "command": "./update-app-icon.sh",
       "cwd": "${workspaceFolder}",
       "description": "Regenerate AppIcon PNG assets from the source SVG."
+    },
+    {
+      "section": "Release",
+      "name": "package",
+      "command": "CONFIGURATION=Release ARCHS=arm64 ./package-release.sh",
+      "id": "mo879oke-yfpl219"
     }
   ],
-  "sections": ["Assets"],
+  "sections": [
+    "Assets",
+    "Release"
+  ],
   "commonOnNewTerminalCommand": "source .venv/bin/activate"
 }
