@@ -57,6 +57,7 @@ jobs:
             xcode: "26.0.1"
           - runner: macos-26
             xcode: "26.3"
+            experimental: true
     steps:
       - uses: actions/checkout@v6
 

@@ -23,6 +23,8 @@ app_path="$built_products_dir/$full_product_name"
 version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$ROOT_DIR/Info.plist")
 archive_base="gas_mask_${version}_${ARCHS// /-}"
 
+codesign --force --deep --sign - "$app_path"
+
 ditto -c -k --sequesterRsrc --keepParent "$app_path" "$DIST_DIR/${archive_base}.zip"
 
 if [[ "$CREATE_DMG" == "1" ]]; then
