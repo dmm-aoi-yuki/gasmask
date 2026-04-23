@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 jobs:
   release:
@@ -25,6 +26,81 @@ jobs:
 
       - name: Build release archive
         run: CONFIGURATION=Release ARCHS=arm64 ./package-release.sh
+
+      - name: Sign update with Sparkle EdDSA key
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          SPARKLE_EDDSA_KEY: ${{ secrets.SPARKLE_EDDSA_KEY }}
+        run: |
+          SPARKLE_BIN=$(find "$HOME/Library/Developer/Xcode/DerivedData" \
+            -path "*/sparkle/Sparkle/bin/sign_update" -type f | head -1)
+          ZIP_FILE=$(ls dist/*.zip | head -1)
+          SIGNATURE=$("$SPARKLE_BIN" "$ZIP_FILE" --ed-key-file <(echo -n "$SPARKLE_EDDSA_KEY"))
+          echo "SPARKLE_SIGNATURE=$SIGNATURE" >> "$GITHUB_ENV"
+          echo "ZIP_FILE=$ZIP_FILE" >> "$GITHUB_ENV"
+          echo "ZIP_SIZE=$(stat -f%z "$ZIP_FILE")" >> "$GITHUB_ENV"
+
+      - name: Generate appcast
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" Info.plist)
+          BUILD=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" Info.plist)
+          ZIP_NAME=$(basename "$ZIP_FILE")
+          DOWNLOAD_URL="https://github.com/dmm-aoi-yuki/gasmask/releases/download/${TAG}/${ZIP_NAME}"
+
+          # Parse edSignature and length from sign_update output
+          ED_SIGNATURE=$(echo "$SPARKLE_SIGNATURE" | sed -n 's/.*sparkle:edSignature="\([^"]*\)".*/\1/p')
+          LENGTH=$(echo "$SPARKLE_SIGNATURE" | sed -n 's/.*length="\([^"]*\)".*/\1/p')
+
+          mkdir -p appcast
+          cat > appcast/appcast.xml << APPCAST_EOF
+          <?xml version="1.0" encoding="utf-8"?>
+          <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+            <channel>
+              <title>Gas Mask</title>
+              <link>https://dmm-aoi-yuki.github.io/gasmask/appcast.xml</link>
+              <description>Gas Mask updates</description>
+              <language>en</language>
+          APPCAST_EOF
+
+          # Fetch existing items from gh-pages if available
+          EXISTING_ITEMS=""
+          if git ls-remote --exit-code origin gh-pages > /dev/null 2>&1; then
+            EXISTING_ITEMS=$(curl -fsSL "https://dmm-aoi-yuki.github.io/gasmask/appcast.xml" \
+              | sed -n '/<item>/,/<\/item>/p' 2>/dev/null || true)
+          fi
+
+          cat >> appcast/appcast.xml << ITEM_EOF
+              <item>
+                <title>Version ${VERSION}</title>
+                <pubDate>$(date -u "+%a, %d %b %Y %H:%M:%S +0000")</pubDate>
+                <sparkle:version>${BUILD}</sparkle:version>
+                <sparkle:shortVersionString>${VERSION}</sparkle:shortVersionString>
+                <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+                <enclosure url="${DOWNLOAD_URL}"
+                           type="application/octet-stream"
+                           sparkle:edSignature="${ED_SIGNATURE}"
+                           length="${LENGTH}" />
+              </item>
+          ITEM_EOF
+
+          if [ -n "$EXISTING_ITEMS" ]; then
+            echo "$EXISTING_ITEMS" >> appcast/appcast.xml
+          fi
+
+          cat >> appcast/appcast.xml << FOOTER_EOF
+            </channel>
+          </rss>
+          FOOTER_EOF
+
+      - name: Deploy appcast to GitHub Pages
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./appcast
+          keep_files: false
 
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v4

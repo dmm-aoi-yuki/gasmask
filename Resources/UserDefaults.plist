@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>SUEnableAutomaticChecks</key>
-	<false/>
+	<true/>
 	<key>Use Growl</key>
 	<true/>
 	<key>activateNextHotkey</key>

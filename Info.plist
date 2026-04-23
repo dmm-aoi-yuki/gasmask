@@ -90,13 +90,13 @@
 		</dict>
 	</array>
 	<key>SUEnableAutomaticChecks</key>
-	<false/>
+	<true/>
 	<key>SUFeedURL</key>
-	<string></string>
+	<string>https://dmm-aoi-yuki.github.io/gasmask/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>sparkle_dsa_pub.pem</string>
 	<key>SUPublicEDKey</key>
-	<string>REPLACE_WITH_EDDSA_PUBLIC_KEY</string>
+	<string>apGr7JKbnFrgEh6KOQwij++UkZqI51AUaErNwWW8W3Y=</string>
 	<key>SUScheduledCheckInterval</key>
 	<integer>86400</integer>
 	<key>UTExportedTypeDeclarations</key>
