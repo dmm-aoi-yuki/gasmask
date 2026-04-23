@@ -55,3 +55,75 @@
 "Combined Hosts File" = "Combined Hosts File";
 "Combined" = "Combined";
 "COMBINED" = "COMBINED";
+
+/* PreferencesPresenter - Tab Labels */
+"General" = "General";
+"Editor" = "Editor";
+"Remote" = "Remote";
+"Hotkeys" = "Hotkeys";
+"Update" = "Update";
+
+/* GeneralTab */
+"Open at Login" = "Open at Login";
+"Override external modifications" = "Override external modifications";
+"Show Host File Name in Status Bar" = "Show Host File Name in Status Bar";
+
+/* EditorTab */
+"Syntax Highlighting" = "Syntax Highlighting";
+
+/* RemoteTab */
+"Update interval:" = "Update interval:";
+
+/* HotkeysTab */
+"Activate Previous File:" = "Activate Previous File:";
+"Activate Next File:" = "Activate Next File:";
+"Update Remote Files:" = "Update Remote Files:";
+
+/* UpdateTab */
+"Automatically check for updates" = "Automatically check for updates";
+"Check Now" = "Check Now";
+"In-app updates are currently disabled for this fork." = "In-app updates are currently disabled for this fork.";
+"Publish new builds through GitHub Releases until a Sparkle appcast and signing keys are configured." = "Publish new builds through GitHub Releases until a Sparkle appcast and signing keys are configured.";
+
+/* SparkleObserver */
+"Last Checked: Never" = "Last Checked: Never";
+"Last Checked: %@" = "Last Checked: %@";
+
+/* URLSheetView */
+"URL:" = "URL:";
+"Add" = "Add";
+"You are not connected to the Internet" = "You are not connected to the Internet";
+
+/* SidebarView */
+"Rename Error" = "Rename Error";
+"Remove Hosts File" = "Remove Hosts File";
+"Are you sure you want to remove \"%@\"? The file will be moved to Trash." = "Are you sure you want to remove \"%@\"? The file will be moved to Trash.";
+"Remove" = "Remove";
+"Save" = "Save";
+"Activate" = "Activate";
+"Show In Finder" = "Show In Finder";
+"Open in Browser" = "Open in Browser";
+"Move to Local" = "Move to Local";
+"Rename" = "Rename";
+"A file with that name already exists." = "A file with that name already exists.";
+"File name cannot contain forward slash." = "File name cannot contain forward slash.";
+"Name" = "Name";
+
+/* StatusBarView */
+"Hosts file can not be modified" = "Hosts file can not be modified";
+"No files" = "No files";
+"One file" = "One file";
+"%d files" = "%d files";
+
+/* CombinedHostsPickerView */
+"No hosts files available to combine." = "No hosts files available to combine.";
+
+/* HostsRowView - Accessibility */
+"Offline" = "Offline";
+"Synchronizing" = "Synchronizing";
+"Active" = "Active";
+"Unsaved" = "Unsaved";
+
+/* StatusBarView - Accessibility */
+"Read-only" = "Read-only";
+"Busy" = "Busy";

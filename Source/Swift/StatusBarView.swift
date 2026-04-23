@@ -36,9 +36,9 @@ struct StatusBarView: View {
 
     private var filesCountText: String {
         switch store.filesCount {
-        case 0: return "No files"
-        case 1: return "One file"
-        default: return "\(store.filesCount) files"
+        case 0: return NSLocalizedString("No files", comment: "")
+        case 1: return NSLocalizedString("One file", comment: "")
+        default: return String(format: NSLocalizedString("%d files", comment: ""), store.filesCount)
         }
     }
 }

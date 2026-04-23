@@ -24,9 +24,9 @@ final class SparkleObserver: ObservableObject {
     /// Formats `lastCheckDate` as `"Last Checked: Never"` or `"Last Checked: <date>"`.
     var lastCheckDateFormatted: String {
         guard let date = lastCheckDate else {
-            return "Last Checked: Never"
+            return NSLocalizedString("Last Checked: Never", comment: "")
         }
-        return "Last Checked: \(Self.dateFormatter.string(from: date))"
+        return String(format: NSLocalizedString("Last Checked: %@", comment: ""), Self.dateFormatter.string(from: date))
     }
 
     convenience init() {

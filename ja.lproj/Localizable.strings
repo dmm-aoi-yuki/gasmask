@@ -5,8 +5,8 @@
 "Cancel" = "キャンセル";
 
 /* HostsMenu - Menu Items */
-"Close Editor Window" = "エディタウインドウを閉じる";
-"Show Editor Window" = "エディタウインドウを表示";
+"Close Editor Window" = "エディタを閉じる";
+"Show Editor Window" = "エディタを表示";
 "Preferences..." = "環境設定...";
 "Update Remote Files" = "リモートファイルを更新";
 "Quit Gas Mask" = "Gas Mask を終了";
@@ -55,3 +55,75 @@
 "Combined Hosts File" = "結合 Hosts ファイル";
 "Combined" = "結合";
 "COMBINED" = "結合";
+
+/* PreferencesPresenter - Tab Labels */
+"General" = "一般";
+"Editor" = "エディタ";
+"Remote" = "リモート";
+"Hotkeys" = "ホットキー";
+"Update" = "アップデート";
+
+/* GeneralTab */
+"Open at Login" = "ログイン時に開く";
+"Override external modifications" = "外部からの変更を上書きする";
+"Show Host File Name in Status Bar" = "ステータスバーにホストファイル名を表示";
+
+/* EditorTab */
+"Syntax Highlighting" = "シンタックスハイライト";
+
+/* RemoteTab */
+"Update interval:" = "更新間隔:";
+
+/* HotkeysTab */
+"Activate Previous File:" = "前のファイルを有効化:";
+"Activate Next File:" = "次のファイルを有効化:";
+"Update Remote Files:" = "リモートファイルを更新:";
+
+/* UpdateTab */
+"Automatically check for updates" = "アップデートを自動的に確認";
+"Check Now" = "今すぐ確認";
+"In-app updates are currently disabled for this fork." = "このフォークではアプリ内アップデートは現在無効です。";
+"Publish new builds through GitHub Releases until a Sparkle appcast and signing keys are configured." = "Sparkle の appcast と署名キーが設定されるまで、GitHub Releases で新しいビルドを公開してください。";
+
+/* SparkleObserver */
+"Last Checked: Never" = "最終確認: なし";
+"Last Checked: %@" = "最終確認: %@";
+
+/* URLSheetView */
+"URL:" = "URL:";
+"Add" = "追加";
+"You are not connected to the Internet" = "インターネットに接続されていません";
+
+/* SidebarView */
+"Rename Error" = "名前変更エラー";
+"Remove Hosts File" = "Hosts ファイルを削除";
+"Are you sure you want to remove \"%@\"? The file will be moved to Trash." = "「%@」を削除してもよろしいですか？ ファイルはゴミ箱に移動されます。";
+"Remove" = "削除";
+"Save" = "保存";
+"Activate" = "有効にする";
+"Show In Finder" = "Finder で表示";
+"Open in Browser" = "ブラウザで開く";
+"Move to Local" = "ローカルに移動";
+"Rename" = "名前を変更";
+"A file with that name already exists." = "同名のファイルがすでに存在します。";
+"File name cannot contain forward slash." = "ファイル名にスラッシュ（/）は使用できません。";
+"Name" = "名前";
+
+/* StatusBarView */
+"Hosts file can not be modified" = "Hosts ファイルは変更できません";
+"No files" = "ファイルなし";
+"One file" = "1 ファイル";
+"%d files" = "%d ファイル";
+
+/* CombinedHostsPickerView */
+"No hosts files available to combine." = "結合可能な hosts ファイルがありません。";
+
+/* HostsRowView - Accessibility */
+"Offline" = "オフライン";
+"Synchronizing" = "同期中";
+"Active" = "有効";
+"Unsaved" = "未保存";
+
+/* StatusBarView - Accessibility */
+"Read-only" = "読み取り専用";
+"Busy" = "処理中";
