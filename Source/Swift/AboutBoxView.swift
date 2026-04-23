@@ -34,8 +34,8 @@ struct AboutBoxView: View {
 
                     LabeledLink(
                         label: "Home Page:",
-                        text: "github.com/2ndalpha/gasmask",
-                        destination: URL(string: "https://github.com/2ndalpha/gasmask")!
+                        text: "github.com/dmm-aoi-yuki/gasmask",
+                        destination: URL(string: "https://github.com/dmm-aoi-yuki/gasmask")!
                     )
                 }
             }

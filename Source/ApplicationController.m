@@ -126,7 +126,7 @@ static BOOL shouldConfigureSparkleUpdater(void)
 
 - (IBAction)donate:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:DonateURL]];
+	// Donate disabled for this fork
 }
 
 -(IBAction)quit:(id)sender
