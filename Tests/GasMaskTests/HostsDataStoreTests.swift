@@ -21,32 +21,35 @@ final class HostsDataStoreTests: XCTestCase {
     // MARK: - Instance Creation
 
     func testInit_returnsDistinctInstances() {
-        let a = HostsDataStore()
-        let b = HostsDataStore()
+        let nc = NotificationCenter()
+        let a = HostsDataStore(notificationCenter: nc)
+        let b = HostsDataStore(notificationCenter: nc)
         XCTAssertFalse(a === b)
     }
 
     // MARK: - Notification Response
 
     func testRenameNotification_setsRenamingHosts() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
 
         let hosts = Hosts(path: "/tmp/test.hst")!
         store.renamingHosts = nil
 
-        NotificationCenter.default.post(name: .hostsFileShouldBeRenamed, object: hosts)
+        nc.post(name: .hostsFileShouldBeRenamed, object: hosts)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         XCTAssertTrue(store.renamingHosts === hosts)
     }
 
     func testSelectNotification_updatesSelectedHosts() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
 
         let hosts = Hosts(path: "/tmp/test.hst")!
         store.selectedHosts = nil
 
-        NotificationCenter.default.post(name: .hostsFileShouldBeSelected, object: hosts)
+        nc.post(name: .hostsFileShouldBeSelected, object: hosts)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         XCTAssertTrue(store.selectedHosts === hosts)
@@ -55,23 +58,25 @@ final class HostsDataStoreTests: XCTestCase {
     // MARK: - Busy State
 
     func testBusyNotification_setsIsBusy() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         XCTAssertFalse(store.isBusy, "precondition")
 
-        NotificationCenter.default.post(name: .threadBusy, object: nil)
+        nc.post(name: .threadBusy, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         XCTAssertTrue(store.isBusy)
     }
 
     func testNotBusyNotification_clearsIsBusy() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
 
-        NotificationCenter.default.post(name: .threadBusy, object: nil)
+        nc.post(name: .threadBusy, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
         XCTAssertTrue(store.isBusy, "precondition")
 
-        NotificationCenter.default.post(name: .threadNotBusy, object: nil)
+        nc.post(name: .threadNotBusy, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         XCTAssertFalse(store.isBusy)
@@ -80,40 +85,44 @@ final class HostsDataStoreTests: XCTestCase {
     // MARK: - Row Refresh Token
 
     func testRowRefreshToken_incrementsOnHostsNodeNeedsUpdate() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         let before = store.rowRefreshToken
 
-        NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
+        nc.post(name: .hostsNodeNeedsUpdate, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         XCTAssertEqual(store.rowRefreshToken, before &+ 1)
     }
 
     func testRowRefreshToken_incrementsOnHostsFileSaved() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         let before = store.rowRefreshToken
 
-        NotificationCenter.default.post(name: .hostsFileSaved, object: nil)
+        nc.post(name: .hostsFileSaved, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         XCTAssertEqual(store.rowRefreshToken, before &+ 1)
     }
 
     func testRowRefreshToken_incrementsOnSynchronizingStatusChanged() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         let before = store.rowRefreshToken
 
-        NotificationCenter.default.post(name: .synchronizingStatusChanged, object: nil)
+        nc.post(name: .synchronizingStatusChanged, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         XCTAssertEqual(store.rowRefreshToken, before &+ 1)
     }
 
     func testRowRefreshToken_doesNotChangeOnUnrelatedNotification() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         let before = store.rowRefreshToken
 
-        NotificationCenter.default.post(name: .hostsFileCreated, object: nil)
+        nc.post(name: .hostsFileCreated, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         XCTAssertEqual(store.rowRefreshToken, before)

@@ -43,6 +43,7 @@ final class HostsDataStore: ObservableObject {
 
     // MARK: Private
 
+    private let notificationCenter: NotificationCenter
     private var notificationObservers: [NSObjectProtocol] = []
     private var isSyncingSelection = false
     private var busyCount = 0
@@ -50,7 +51,8 @@ final class HostsDataStore: ObservableObject {
 
     // MARK: Init
 
-    init() {
+    init(notificationCenter: NotificationCenter = .default) {
+        self.notificationCenter = notificationCenter
         refreshGroups()
         refreshFilesCount()
         observeNotifications()
@@ -58,7 +60,7 @@ final class HostsDataStore: ObservableObject {
 
     deinit {
         for observer in notificationObservers {
-            NotificationCenter.default.removeObserver(observer)
+            notificationCenter.removeObserver(observer)
         }
     }
 
@@ -109,7 +111,7 @@ final class HostsDataStore: ObservableObject {
     // MARK: Notification Observers
 
     private func observeNotifications() {
-        let nc = NotificationCenter.default
+        let nc = notificationCenter
 
         // Data change notifications — refresh groups and counts
         let refreshNames: [NSNotification.Name] = [

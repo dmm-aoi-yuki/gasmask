@@ -9,12 +9,13 @@ final class HostsDataStoreNotificationTests: XCTestCase {
     /// Verifies that multiple rapid row-refresh notifications are coalesced
     /// into a single `rowRefreshToken` increment (one SwiftUI re-render).
     func testCoalescing_rapidNotifications_incrementTokenOnce() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         let before = store.rowRefreshToken
 
         // Post 10 rapid notifications without draining the run loop
         for _ in 0..<10 {
-            NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
+            nc.post(name: .hostsNodeNeedsUpdate, object: nil)
         }
 
         // Drain: observer blocks fire, then the single coalesced async block
@@ -30,16 +31,17 @@ final class HostsDataStoreNotificationTests: XCTestCase {
     /// A download lifecycle posts hostsFileSaved, hostsNodeNeedsUpdate,
     /// and synchronizingStatusChanged in rapid succession.
     func testCoalescing_mixedNotificationTypes_incrementTokenOnce() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         let before = store.rowRefreshToken
 
         // Simulate notification cascade from hostsDownloaded:
-        NotificationCenter.default.post(name: .synchronizingStatusChanged, object: nil)
-        NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
-        NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
-        NotificationCenter.default.post(name: .hostsFileSaved, object: nil)
-        NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
-        NotificationCenter.default.post(name: .synchronizingStatusChanged, object: nil)
+        nc.post(name: .synchronizingStatusChanged, object: nil)
+        nc.post(name: .hostsNodeNeedsUpdate, object: nil)
+        nc.post(name: .hostsNodeNeedsUpdate, object: nil)
+        nc.post(name: .hostsFileSaved, object: nil)
+        nc.post(name: .hostsNodeNeedsUpdate, object: nil)
+        nc.post(name: .synchronizingStatusChanged, object: nil)
 
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.2))
 
@@ -51,10 +53,11 @@ final class HostsDataStoreNotificationTests: XCTestCase {
     /// Verifies that a single notification still increments the token by 1
     /// (coalescing doesn't break the single-notification case).
     func testCoalescing_singleNotification_incrementsTokenByOne() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         let before = store.rowRefreshToken
 
-        NotificationCenter.default.post(name: .hostsFileSaved, object: nil)
+        nc.post(name: .hostsFileSaved, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.2))
 
         XCTAssertEqual(store.rowRefreshToken, before &+ 1)
@@ -63,17 +66,18 @@ final class HostsDataStoreNotificationTests: XCTestCase {
     /// Verifies that notifications separated by a run loop drain each
     /// produce their own increment (coalescing is per-cycle, not global).
     func testCoalescing_separateCycles_incrementTokenSeparately() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
         let before = store.rowRefreshToken
 
         // First cycle
-        NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
-        NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
+        nc.post(name: .hostsNodeNeedsUpdate, object: nil)
+        nc.post(name: .hostsNodeNeedsUpdate, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         // Second cycle
-        NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
-        NotificationCenter.default.post(name: .hostsNodeNeedsUpdate, object: nil)
+        nc.post(name: .hostsNodeNeedsUpdate, object: nil)
+        nc.post(name: .hostsNodeNeedsUpdate, object: nil)
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
 
         let increment = store.rowRefreshToken &- before
@@ -86,7 +90,8 @@ final class HostsDataStoreNotificationTests: XCTestCase {
     /// Verifies that a download lifecycle's notification cascade produces
     /// a bounded number of objectWillChange signals.
     func testCoalescing_downloadLifecycle_boundedObjectWillChange() {
-        let store = HostsDataStore()
+        let nc = NotificationCenter()
+        let store = HostsDataStore(notificationCenter: nc)
 
         let remote = Hosts(path: "/tmp/coalesceTest.hst")!
         remote.setSaved(true)
@@ -103,15 +108,15 @@ final class HostsDataStoreNotificationTests: XCTestCase {
         defer { cancellable.cancel() }
 
         // Simulate full download lifecycle notification cascade
-        NotificationCenter.default.post(name: .synchronizingStatusChanged, object: remote)
+        nc.post(name: .synchronizingStatusChanged, object: remote)
         remote.setEnabled(false)
-        NotificationCenter.default.post(name: .threadBusy, object: nil)
-        NotificationCenter.default.post(name: .synchronizingStatusChanged, object: remote)
+        nc.post(name: .threadBusy, object: nil)
+        nc.post(name: .synchronizingStatusChanged, object: remote)
         remote.setEnabled(true)
         remote.setContents("large content here")
         remote.setSaved(true)
-        NotificationCenter.default.post(name: .hostsFileSaved, object: remote)
-        NotificationCenter.default.post(name: .threadNotBusy, object: nil)
+        nc.post(name: .hostsFileSaved, object: remote)
+        nc.post(name: .threadNotBusy, object: nil)
 
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.3))
 

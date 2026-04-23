@@ -23,14 +23,17 @@ struct AboutBoxView: View {
                     Spacer()
                         .frame(height: 2)
 
-                    Text("Author: Siim Raud")
+                    Text("Based on Gas Mask by Siim Raud")
                         .font(.system(size: 11))
 
-                    LabeledLink(
-                        label: "E-mail:",
-                        text: "siim@clockwise.ee",
-                        destination: URL(string: "mailto:siim@clockwise.ee")!
-                    )
+                    HStack(spacing: 4) {
+                        Text("E-mail:")
+                            .font(.system(size: 11))
+                        Text(verbatim: "siim@clockwise.ee")
+                            .font(.system(size: 11))
+                            .strikethrough()
+                            .foregroundColor(.secondary)
+                    }
 
                     LabeledLink(
                         label: "Home Page:",
