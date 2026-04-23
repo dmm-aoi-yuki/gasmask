@@ -31,12 +31,12 @@ CONFIGURATION=Release ARCHS=arm64 CREATE_DMG=1 ./package-release.sh
 2. 例のようにタグを作る。
 
 ```bash
-git tag v0.8.6-arm64.2
-git push origin v0.8.6-arm64.2
+git tag v0.8.7-arm64.1
+git push origin v0.8.7-arm64.1
 ```
 
 1. `.github/workflows/release.yml` が draft release を作成し、zip を添付する。
-2. draft release に `docs/release-notes/0.8.6-arm64.2.md` の内容を貼る。
+2. draft release に `docs/release-notes/0.8.7-arm64.1.md` の内容を貼る。
 3. 必要なら手元で作った dmg を追加添付して公開する。
 
 ## 今後 Sparkle を有効化するとき
