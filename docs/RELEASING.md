@@ -1,6 +1,6 @@
 # Releasing Gas Mask
 
-この fork は GitHub Releases を配布の基準にします。Sparkle の appcast と署名鍵を整備するまでは、アプリ内自動更新は無効のまま運用します。
+この fork は GitHub Releases を配布の基準にし、Sparkle による自動アップデートを GitHub Pages 経由で配信します。
 
 ## 事前確認
 
@@ -41,8 +41,28 @@ git push origin v0.8.6-arm64.2
 
 ## 今後 Sparkle を有効化するとき
 
-1. appcast を fork 管理下で配信する。
-2. `SUPublicEDKey` を実値に置き換える。
-3. `SUFeedURL` を appcast URL に設定する。
-4. `SUEnableAutomaticChecks` の既定値を有効化する。
-5. Preferences の Update タブとメニューから動作確認する。
+Sparkle 自動更新は有効化済みです。
+
+- **appcast URL**: `https://dmm-aoi-yuki.github.io/gasmask/appcast.xml`
+- **EdDSA 公開鍵**: `Info.plist` の `SUPublicEDKey` に設定済み
+- **秘密鍵**: Keychain に保存済み。CI 用に `SPARKLE_EDDSA_KEY` GitHub Secret に登録が必要
+
+### GitHub Secret の設定
+
+リポジトリの Settings → Secrets and variables → Actions に以下を登録する:
+
+| Secret 名           | 値                                                |
+| ------------------- | ------------------------------------------------- |
+| `SPARKLE_EDDSA_KEY` | `generate_keys -x` でエクスポートした秘密鍵の内容 |
+
+### GitHub Pages の設定
+
+リポジトリの Settings → Pages で Source を **Deploy from a branch**、Branch を **gh-pages** / `/ (root)` に設定する。
+
+### 仕組み
+
+1. タグ push で `release.yml` が起動する。
+2. CI がビルド → zip を EdDSA 署名 → `appcast.xml` を生成する。
+3. `appcast.xml` を gh-pages ブランチにデプロイする。
+4. GitHub Release を draft で作成する。
+5. Sparkle が `appcast.xml` をポーリングし、ユーザに更新を通知する。
