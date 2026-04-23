@@ -14,11 +14,18 @@
       "name": "package",
       "command": "CONFIGURATION=Release ARCHS=arm64 ./package-release.sh",
       "id": "mo879oke-yfpl219"
+    },
+    {
+      "section": "Debug",
+      "name": "自動テスト",
+      "command": "xcodebuild -project 'Gas Mask.xcodeproj' -scheme 'Gas Mask' -configuration Debug -destination 'platform=macOS' ARCHS=arm64 CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO test",
+      "id": "mob6pjvz-pc8s70z"
     }
   ],
   "sections": [
     "Assets",
-    "Release"
+    "Release",
+    "Debug"
   ],
   "commonOnNewTerminalCommand": "source .venv/bin/activate"
 }

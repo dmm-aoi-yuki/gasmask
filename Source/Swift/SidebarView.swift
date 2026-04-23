@@ -4,8 +4,6 @@ import UniformTypeIdentifiers
 struct SidebarView: View {
     @ObservedObject var store: HostsDataStore
 
-    @State private var editingName: String = ""
-    @State private var isEditing = false
     @State private var renameError: String?
     @State private var hostsToRemove: Hosts?
 
@@ -15,7 +13,8 @@ struct SidebarView: View {
                 let children = (group.children as? [Hosts]) ?? []
                 Section(header: HostsRowView(hosts: group, isGroup: true, refreshToken: store.rowRefreshToken)) {
                     ForEach(children, id: \.self) { hosts in
-                        rowContent(for: hosts)
+                        HostsRowView(hosts: hosts, isGroup: false, refreshToken: store.rowRefreshToken)
+                            .contextMenu { contextMenuItems(for: hosts) }
                             .tag(hosts)
                     }
                     .onMove { source, destination in
@@ -26,9 +25,9 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
-        .onChange(of: store.renamingHosts) { newValue in
+        .onReceive(store.$renamingHosts) { newValue in
             if let hosts = newValue {
-                beginRename(hosts)
+                showRenamePanel(for: hosts)
             }
         }
         .alert(Text("Rename Error"), isPresented: Binding(
@@ -55,7 +54,7 @@ struct SidebarView: View {
         }
     }
 
-    // MARK: - Row Content
+    // MARK: - Helpers
 
     private func moveHosts(in group: HostsGroup, from source: IndexSet, to destination: Int) {
         guard let controller = HostsMainController.defaultInstance() else { return }
@@ -66,42 +65,26 @@ struct SidebarView: View {
         controller.moveHostsFile(hosts, to: adjustedDestination)
     }
 
-    @ViewBuilder
-    private func rowContent(for hosts: Hosts) -> some View {
-        if isEditing, store.renamingHosts === hosts {
-            renameField(for: hosts)
-        } else {
-            HostsRowView(hosts: hosts, isGroup: false, refreshToken: store.rowRefreshToken)
-                .contextMenu { contextMenuItems(for: hosts) }
-        }
-    }
+    // MARK: - Rename
 
-    // MARK: - Inline Rename
+    private func showRenamePanel(for hosts: Hosts) {
+        defer { store.renamingHosts = nil }
 
-    private func renameField(for hosts: Hosts) -> some View {
-        TextField("Name", text: $editingName)
-        .textFieldStyle(.plain)
-        .font(.system(size: NSFont.smallSystemFontSize))
-        .onSubmit {
-            commitRename(hosts)
-        }
-        .onExitCommand {
-            cancelRename()
-        }
-    }
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Rename", comment: "Rename dialog title")
+        alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
 
-    private func beginRename(_ hosts: Hosts) {
-        editingName = hosts.name() ?? ""
-        isEditing = true
-    }
+        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        textField.stringValue = hosts.name() ?? ""
+        textField.isEditable = true
+        textField.isSelectable = true
+        alert.accessoryView = textField
+        alert.window.initialFirstResponder = textField
 
-    private func commitRename(_ hosts: Hosts) {
-        defer {
-            isEditing = false
-            store.renamingHosts = nil
-        }
+        guard alert.runModal() == .alertFirstButtonReturn else { return }
 
-        let trimmed = editingName.trimmingCharacters(in: .whitespaces)
+        let trimmed = textField.stringValue.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
 
         if trimmed.contains("/") {
@@ -116,11 +99,6 @@ struct SidebarView: View {
         } else {
             renameError = NSLocalizedString("A file with that name already exists.", comment: "")
         }
-    }
-
-    private func cancelRename() {
-        isEditing = false
-        store.renamingHosts = nil
     }
 
     // MARK: - Context Menu

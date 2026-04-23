@@ -55,7 +55,10 @@ final class PreferencesPresenterTests: XCTestCase {
 
         let tabVC = preferencesWindow()?.contentViewController as? NSTabViewController
         let labels = tabVC?.tabViewItems.map(\.label)
-        XCTAssertEqual(labels, ["General", "Editor", "Remote", "Hotkeys", "Update"])
+        let expected = ["General", "Editor", "Remote", "Hotkeys", "Update"].map {
+            NSLocalizedString($0, comment: "")
+        }
+        XCTAssertEqual(labels, expected)
     }
 
     func testShowPreferences_tabsHaveIcons() {
@@ -70,8 +73,8 @@ final class PreferencesPresenterTests: XCTestCase {
     }
 
     /// Captures a screenshot of a specific tab and saves to /tmp/preferences-<tab>.png.
+    /// Uses view-based rendering to avoid requiring screen recording permission.
     private func captureTab(index: Int, name: String) throws {
-        try XCTSkipIf(NSScreen.main == nil, "No display available")
         PreferencesPresenter.showPreferences()
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.3))
         let w = try XCTUnwrap(preferencesWindow())
@@ -79,20 +82,11 @@ final class PreferencesPresenterTests: XCTestCase {
         tabVC.selectedTabViewItemIndex = index
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.3))
 
-        let frame = w.frame
-        let screenFrame = w.screen?.frame ?? NSScreen.main?.frame ?? .zero
-        let cgRect = CGRect(
-            x: frame.origin.x,
-            y: screenFrame.height - frame.origin.y - frame.height,
-            width: frame.width,
-            height: frame.height
-        )
-        if let displayID = w.screen?.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID,
-           let image = CGDisplayCreateImage(displayID, rect: cgRect) {
-            let bitmap = NSBitmapImageRep(cgImage: image)
-            if let png = bitmap.representation(using: .png, properties: [:]) {
-                try png.write(to: URL(fileURLWithPath: "/tmp/preferences-\(name).png"))
-            }
+        let view = try XCTUnwrap(w.contentView)
+        let bitmapRep = try XCTUnwrap(view.bitmapImageRepForCachingDisplay(in: view.bounds))
+        view.cacheDisplay(in: view.bounds, to: bitmapRep)
+        if let png = bitmapRep.representation(using: .png, properties: [:]) {
+            try png.write(to: URL(fileURLWithPath: "/tmp/preferences-\(name).png"))
         }
     }
 
