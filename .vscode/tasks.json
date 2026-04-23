@@ -1,0 +1,92 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Gas Mask (Debug)",
+      "type": "shell",
+      "command": "xcodebuild",
+      "args": [
+        "-project",
+        "Gas Mask.xcodeproj",
+        "-scheme",
+        "Gas Mask",
+        "-configuration",
+        "Debug",
+        "-destination",
+        "platform=macOS",
+        "ARCHS=arm64",
+        "CODE_SIGN_IDENTITY=",
+        "CODE_SIGNING_REQUIRED=NO",
+        "CODE_SIGNING_ALLOWED=NO"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$xcodebuild"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Build & Run Gas Mask (Debug)",
+      "dependsOn": "Build Gas Mask (Debug)",
+      "type": "shell",
+      "command": "open",
+      "args": [
+        "$(xcodebuild -project 'Gas Mask.xcodeproj' -scheme 'Gas Mask' -configuration Debug -destination 'platform=macOS' ARCHS=arm64 CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -showBuildSettings 2>/dev/null | awk -F ' = ' '/BUILT_PRODUCTS_DIR/ {dir=$2} /FULL_PRODUCT_NAME/ {name=$2} END {print dir\"/\"name}')"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Gas Mask Tests (Debug)",
+      "type": "shell",
+      "command": "xcodebuild",
+      "args": [
+        "-project",
+        "Gas Mask.xcodeproj",
+        "-scheme",
+        "Gas Mask",
+        "-configuration",
+        "Debug",
+        "-destination",
+        "platform=macOS",
+        "ARCHS=arm64",
+        "CODE_SIGN_IDENTITY=",
+        "CODE_SIGNING_REQUIRED=NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "test"
+      ],
+      "group": "test",
+      "problemMatcher": ["$xcodebuild"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Clean Build",
+      "type": "shell",
+      "command": "xcodebuild",
+      "args": [
+        "-project",
+        "Gas Mask.xcodeproj",
+        "-scheme",
+        "Gas Mask",
+        "-configuration",
+        "Debug",
+        "clean"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}

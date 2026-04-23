@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Build & Launch Gas Mask (Japanese)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "open -a '${env:HOME}/Library/Developer/Xcode/DerivedData/Gas_Mask-djqvwkakibqfdfdqeamdpvmzxiyn/Build/Products/Debug/Gas Mask.app' --args -AppleLanguages '(ja)' -AppleLocale ja_JP",
+      "preLaunchTask": "Build Gas Mask (Debug)"
+    },
+    {
+      "name": "Build & Launch Gas Mask (English)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "open -a '${env:HOME}/Library/Developer/Xcode/DerivedData/Gas_Mask-djqvwkakibqfdfdqeamdpvmzxiyn/Build/Products/Debug/Gas Mask.app' --args -AppleLanguages '(en)' -AppleLocale en_US",
+      "preLaunchTask": "Build Gas Mask (Debug)"
+    }
+  ]
+}
