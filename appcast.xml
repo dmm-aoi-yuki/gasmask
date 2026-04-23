@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Gas Mask</title>
+    <link>https://dmm-aoi-yuki.github.io/gasmask/appcast.xml</link>
+    <description>Gas Mask updates</description>
+    <language>en</language>
+    <item>
+      <title>Version 0.8.7</title>
+      <pubDate>Thu, 23 Apr 2026 06:49:11 +0000</pubDate>
+      <sparkle:version>0.8.7</sparkle:version>
+      <sparkle:shortVersionString>0.8.7</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <enclosure url="https://github.com/dmm-aoi-yuki/gasmask/releases/download/v0.8.7-arm64.1/gas_mask_0.8.7_arm64.zip"
+                 type="application/octet-stream"
+                 sparkle:edSignature="b5Qf8YHuTuvRCOqA3jFrtqkHIazwE7LdY2K/XMBQrPtc8Wskk0V4W18h1qz9t1WxSwKrULq9GKuAaKIbaI1sDQ=="
+                 length="2140847" />
+    </item>
+  </channel>
+</rss>
