@@ -10,6 +10,7 @@ extension NSNotification.Name {
     static let hostsFileRemoved = NSNotification.Name("HostsFileRemovedNotification")
     static let hostsFileRenamed = NSNotification.Name("HostsFileRenamedNotification")
     static let hostsFileSaved = NSNotification.Name("HostsFileSavedNotification")
+    static let hostsFilesReordered = NSNotification.Name("HostsFilesReorderedNotification")
     static let hostsNodeNeedsUpdate = NSNotification.Name("HostsNodeNeedsUpdateNotification")
     static let hostsFileShouldBeRenamed = NSNotification.Name("HostsFileShouldBeRenamedNotification")
     static let hostsFileShouldBeSelected = NSNotification.Name("HostsFileShouldBeSelectedNotification")
@@ -114,7 +115,8 @@ final class HostsDataStore: ObservableObject {
         let refreshNames: [NSNotification.Name] = [
             .hostsFileCreated,
             .hostsFileRemoved,
-            .hostsFileRenamed
+            .hostsFileRenamed,
+            .hostsFilesReordered
         ]
 
         for name in refreshNames {
@@ -139,6 +141,7 @@ final class HostsDataStore: ObservableObject {
         // Single-row refresh notifications — increment token to invalidate SwiftUI row views
         let rowRefreshNames: [NSNotification.Name] = [
             .hostsFileSaved,
+            .hostsFileRenamed,
             .hostsNodeNeedsUpdate,
             .synchronizingStatusChanged
         ]

@@ -18,6 +18,9 @@ struct SidebarView: View {
                         rowContent(for: hosts)
                             .tag(hosts)
                     }
+                    .onMove { source, destination in
+                        moveHosts(in: group, from: source, to: destination)
+                    }
                 }
                 .onDrop(of: [.fileURL, .url], delegate: SidebarDropDelegate(group: group))
             }
@@ -28,7 +31,7 @@ struct SidebarView: View {
                 beginRename(hosts)
             }
         }
-        .alert("Rename Error", isPresented: Binding(
+        .alert(Text("Rename Error"), isPresented: Binding(
             get: { renameError != nil },
             set: { if !$0 { renameError = nil } }
         )) {
@@ -36,7 +39,7 @@ struct SidebarView: View {
         } message: {
             Text(renameError ?? "")
         }
-        .alert("Remove Hosts File", isPresented: Binding(
+        .alert(Text("Remove Hosts File"), isPresented: Binding(
             get: { hostsToRemove != nil },
             set: { if !$0 { hostsToRemove = nil } }
         )) {
@@ -48,11 +51,20 @@ struct SidebarView: View {
                 hostsToRemove = nil
             }
         } message: {
-            Text("Are you sure you want to remove \"\(hostsToRemove?.name() ?? "")\"? The file will be moved to Trash.")
+            Text(String(format: NSLocalizedString("Are you sure you want to remove \"%@\"? The file will be moved to Trash.", comment: ""), hostsToRemove?.name() ?? ""))
         }
     }
 
     // MARK: - Row Content
+
+    private func moveHosts(in group: HostsGroup, from source: IndexSet, to destination: Int) {
+        guard let controller = HostsMainController.defaultInstance() else { return }
+        let children = (group.children as? [Hosts]) ?? []
+        guard let sourceIndex = source.first, sourceIndex < children.count else { return }
+        let hosts = children[sourceIndex]
+        let adjustedDestination = destination > sourceIndex ? destination - 1 : destination
+        controller.moveHostsFile(hosts, to: adjustedDestination)
+    }
 
     @ViewBuilder
     private func rowContent(for hosts: Hosts) -> some View {
@@ -93,7 +105,7 @@ struct SidebarView: View {
         guard !trimmed.isEmpty else { return }
 
         if trimmed.contains("/") {
-            renameError = "File name cannot contain forward slash."
+            renameError = NSLocalizedString("File name cannot contain forward slash.", comment: "")
             return
         }
 
@@ -102,7 +114,7 @@ struct SidebarView: View {
         if renamed {
             NotificationCenter.default.post(name: .hostsFileRenamed, object: hosts)
         } else {
-            renameError = "A file with that name already exists."
+            renameError = NSLocalizedString("A file with that name already exists.", comment: "")
         }
     }
 

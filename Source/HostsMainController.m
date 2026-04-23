@@ -110,6 +110,7 @@ static HostsMainController *sharedInstance = nil;
 		NSObject<HostsControllerProtocol> *controller = [controllers objectAtIndex:i];
 		
 		[controller loadFiles];
+		[self applySavedOrderForController:controller];
 		
 		for (int j=0; j<[[controller hostsFiles] count]; j++) {
 			NSIndexPath *indexPath = [[NSIndexPath indexPathWithIndex:i] indexPathByAddingIndex:j];
@@ -400,6 +401,91 @@ static HostsMainController *sharedInstance = nil;
 {
 	HostsGroup *group = [[self hostsControllerForControllerClass:controllerClass] hostsGroup];
 	[self move:hosts to:group];
+}
+
+#pragma mark -
+#pragma mark Reordering
+
+- (void)moveHostsFile:(Hosts*)hosts toIndex:(NSInteger)index
+{
+	NSObject<HostsControllerProtocol> *controller = [self hostsControllerForFile:hosts];
+	if (controller == nil) {
+		return;
+	}
+
+	NSMutableArray *files = [controller hostsFiles];
+	NSUInteger oldIndex = [files indexOfObject:hosts];
+	if (oldIndex == NSNotFound || oldIndex == (NSUInteger)index) {
+		return;
+	}
+
+	NSUInteger controllerIndex = [controllers indexOfObject:controller];
+
+	// Remove from NSTreeController
+	NSIndexPath *oldPath = [[NSIndexPath indexPathWithIndex:controllerIndex] indexPathByAddingIndex:oldIndex];
+	[self removeObjectAtArrangedObjectIndexPath:oldPath];
+
+	// Reorder in the backing array
+	[files removeObjectAtIndex:oldIndex];
+	if ((NSUInteger)index > [files count]) {
+		index = [files count];
+	}
+	[files insertObject:hosts atIndex:index];
+
+	// Re-insert into NSTreeController
+	NSIndexPath *newPath = [[NSIndexPath indexPathWithIndex:controllerIndex] indexPathByAddingIndex:index];
+	[self insertObject:hosts atArrangedObjectIndexPath:newPath];
+
+	[self saveOrderForController:controller];
+
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc postNotificationName:HostsFilesReorderedNotification object:nil];
+}
+
+- (NSString*)orderDefaultsKeyForController:(NSObject<HostsControllerProtocol>*)controller
+{
+	return [NSString stringWithFormat:@"hostsFileOrder_%@", [controller name]];
+}
+
+- (void)saveOrderForController:(NSObject<HostsControllerProtocol>*)controller
+{
+	NSMutableArray *paths = [NSMutableArray array];
+	for (Hosts *h in [controller hostsFiles]) {
+		if ([h path]) {
+			[paths addObject:[h path]];
+		}
+	}
+	NSString *key = [self orderDefaultsKeyForController:controller];
+	[[NSUserDefaults standardUserDefaults] setObject:paths forKey:key];
+}
+
+- (void)applySavedOrderForController:(NSObject<HostsControllerProtocol>*)controller
+{
+	NSString *key = [self orderDefaultsKeyForController:controller];
+	NSArray *savedPaths = [[NSUserDefaults standardUserDefaults] arrayForKey:key];
+	if (savedPaths == nil || [savedPaths count] == 0) {
+		return;
+	}
+
+	NSMutableArray *files = [controller hostsFiles];
+	NSMutableArray *ordered = [NSMutableArray arrayWithCapacity:[files count]];
+	NSMutableArray *remaining = [NSMutableArray arrayWithArray:files];
+
+	for (NSString *path in savedPaths) {
+		for (Hosts *h in remaining) {
+			if ([[h path] isEqualToString:path]) {
+				[ordered addObject:h];
+				[remaining removeObject:h];
+				break;
+			}
+		}
+	}
+
+	// Append any files not found in saved order (newly added)
+	[ordered addObjectsFromArray:remaining];
+
+	[files removeAllObjects];
+	[files addObjectsFromArray:ordered];
 }
 
 #pragma mark -

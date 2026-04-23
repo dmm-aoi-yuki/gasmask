@@ -122,6 +122,13 @@
 - (void)move:(Hosts*)hosts toControllerClass:(Class)controllerClass;
 
 #pragma mark -
+#pragma mark Reordering
+
+- (void)moveHostsFile:(Hosts*)hosts toIndex:(NSInteger)index;
+- (void)saveOrderForController:(NSObject<HostsControllerProtocol>*)controller;
+- (void)applySavedOrderForController:(NSObject<HostsControllerProtocol>*)controller;
+
+#pragma mark -
 #pragma Tracking Changes
 
 - (void)startTrackingFileChanges;
