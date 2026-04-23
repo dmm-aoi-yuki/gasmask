@@ -55,6 +55,7 @@
 		354E7EB110AEEF3D00FC4757 /* StructureConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 354E7EB010AEEF3D00FC4757 /* StructureConverter.m */; };
 		354E7F5E10AEFA9D00FC4757 /* PrivilegedActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 354E7F5D10AEFA9D00FC4757 /* PrivilegedActions.m */; };
 		354E7F8110AEFBC500FC4757 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 354E7F8010AEFBC500FC4757 /* Security.framework */; };
+		DD1A2B3C4D5E000300000001 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1A2B3C4D5E000300000002 /* LocalAuthentication.framework */; };
 		354E80B510AF383C00FC4757 /* FileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 354E80B410AF383C00FC4757 /* FileUtil.m */; };
 		355F5C5B12244B67006C2884 /* LocalHostsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 355F5C5A12244B67006C2884 /* LocalHostsController.m */; };
 		355F5CA512244F28006C2884 /* RemoteHostsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 355F5CA412244F28006C2884 /* RemoteHostsController.m */; };
@@ -257,6 +258,7 @@
 		354E7F5C10AEFA9D00FC4757 /* PrivilegedActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrivilegedActions.h; path = Source/PrivilegedActions.h; sourceTree = "<group>"; };
 		354E7F5D10AEFA9D00FC4757 /* PrivilegedActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrivilegedActions.m; path = Source/PrivilegedActions.m; sourceTree = "<group>"; };
 		354E7F8010AEFBC500FC4757 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		DD1A2B3C4D5E000300000002 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = /System/Library/Frameworks/LocalAuthentication.framework; sourceTree = "<absolute>"; };
 		354E80B310AF383C00FC4757 /* FileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileUtil.h; path = Source/FileUtil.h; sourceTree = "<group>"; };
 		354E80B410AF383C00FC4757 /* FileUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileUtil.m; path = Source/FileUtil.m; sourceTree = "<group>"; };
 		355F5C5912244B67006C2884 /* LocalHostsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalHostsController.h; path = Source/LocalHostsController.h; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 				AA1B2C3D4E5F000100000001 /* MASShortcut in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				354E7F8110AEFBC500FC4757 /* Security.framework in Frameworks */,
+				DD1A2B3C4D5E000300000001 /* LocalAuthentication.framework in Frameworks */,
 				3545DCE410E3997200EBA66D /* SystemConfiguration.framework in Frameworks */,
 				35C8D5A911144F7000B4242D /* Carbon.framework in Frameworks */,
 				BB1A2B3C4D5E000200000001 /* ServiceManagement.framework in Frameworks */,
@@ -422,6 +425,7 @@
 				354E7F8010AEFBC500FC4757 /* Security.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				BB1A2B3C4D5E000100000001 /* ServiceManagement.framework */,
+				DD1A2B3C4D5E000300000002 /* LocalAuthentication.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
