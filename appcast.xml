@@ -7,6 +7,17 @@
     <language>en</language>
     <item>
       <title>Version 0.8.7</title>
+      <pubDate>Thu, 23 Apr 2026 10:18:59 +0000</pubDate>
+      <sparkle:version>0.8.7</sparkle:version>
+      <sparkle:shortVersionString>0.8.7</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <enclosure url="https://github.com/dmm-aoi-yuki/gasmask/releases/download/v0.8.7-arm64.3/gas_mask_0.8.7_arm64.zip"
+                 type="application/octet-stream"
+                 sparkle:edSignature="AVitlF69Hs0guzm1KZkpjSZcz9MB5IvfC1konbR+IweoTeKKhPz0fyeRyE9rHr/r0278VPH2ycts5VrcY9h0Cg=="
+                 length="2136703" />
+    </item>
+    <item>
+      <title>Version 0.8.7</title>
       <pubDate>Thu, 23 Apr 2026 06:49:11 +0000</pubDate>
       <sparkle:version>0.8.7</sparkle:version>
       <sparkle:shortVersionString>0.8.7</sparkle:shortVersionString>
