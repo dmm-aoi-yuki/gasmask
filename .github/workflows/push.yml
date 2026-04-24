@@ -11,8 +11,6 @@ jobs:
         include:
           - runner: macos-15
             xcode: "16.4"
-          - runner: macos-26
-            xcode: "26.2"
           - runner: macos-14
             xcode: "15.4"
           - runner: macos-15
@@ -46,9 +44,6 @@ jobs:
             xcode: "16.4"
           - runner: macos-15-intel
             xcode: "16.4"
-          - runner: macos-26
-            xcode: "26.2"
-            experimental: true
           - runner: macos-14
             xcode: "15.4"
           - runner: macos-15

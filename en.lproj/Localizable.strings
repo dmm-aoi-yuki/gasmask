@@ -10,6 +10,11 @@
 "Preferences..." = "Preferences...";
 "Update Remote Files" = "Update Remote Files";
 "Quit Gas Mask" = "Quit Gas Mask";
+"Apply Hosts Changes" = "Apply Hosts Changes";
+"Chrome" = "Chrome";
+"Flush socket pools" = "Run [Flush socket pools]";
+"Flush DNS Cache" = "Flush DNS Cache";
+"Flush the DNS cache" = "Flush the DNS cache";
 
 /* Menulet - Status Bar */
 "Gas Mask" = "Gas Mask";
@@ -127,3 +132,29 @@
 /* StatusBarView - Accessibility */
 "Read-only" = "Read-only";
 "Busy" = "Busy";
+
+/* IconPicker */
+"Set Status Bar Icon…" = "Set Status Bar Icon…";
+"Select Status Bar Icon" = "Select Status Bar Icon";
+"Search icons…" = "Search icons…";
+"Reset to Default" = "Reset to Default";
+"Apply" = "Apply";
+
+/* IconPicker - Categories */
+"Network" = "Network";
+"Server & Infrastructure" = "Server & Infrastructure";
+"Development" = "Development";
+"Environment" = "Environment";
+"Shapes & Status" = "Shapes & Status";
+"Indicators" = "Indicators";
+"Symbols" = "Symbols";
+"Buildings & Locations" = "Buildings & Locations";
+"Cloud & Weather" = "Cloud & Weather";
+"Transport" = "Transport";
+"Communication" = "Communication";
+"Media" = "Media";
+"People" = "People";
+"Objects & Tools" = "Objects & Tools";
+"Energy & Science" = "Energy & Science";
+"Nature & Animals" = "Nature & Animals";
+"Arrows & Directions" = "Arrows & Directions";

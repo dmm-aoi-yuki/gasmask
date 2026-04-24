@@ -77,7 +77,10 @@ struct HostsRowView: View {
 
     @ViewBuilder
     private var fileIcon: some View {
-        if hosts is CombinedHosts {
+        if let path = hosts.path, let customIcon = StatusBarIconStore.iconName(forHostsPath: path) {
+            Image(systemName: customIcon)
+                .foregroundStyle(hosts.enabled() ? .secondary : .tertiary)
+        } else if hosts is CombinedHosts {
             Image(systemName: "doc.on.doc")
                 .foregroundStyle(.secondary)
         } else if hosts is RemoteHosts {

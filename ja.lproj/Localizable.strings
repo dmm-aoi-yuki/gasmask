@@ -10,6 +10,11 @@
 "Preferences..." = "環境設定...";
 "Update Remote Files" = "リモートファイルを更新";
 "Quit Gas Mask" = "Gas Mask を終了";
+"Apply Hosts Changes" = "Hosts変更を反映";
+"Chrome" = "Chrome";
+"Flush socket pools" = "[Flush socket pools]を実行";
+"Flush DNS Cache" = "DNSキャッシュをクリア";
+"Flush the DNS cache" = "DNSキャッシュをクリアします";
 
 /* Menulet - Status Bar */
 "Gas Mask" = "Gas Mask";
@@ -127,3 +132,29 @@
 /* StatusBarView - Accessibility */
 "Read-only" = "読み取り専用";
 "Busy" = "処理中";
+
+/* IconPicker */
+"Set Status Bar Icon…" = "ステータスバーアイコンを設定…";
+"Select Status Bar Icon" = "ステータスバーアイコンの選択";
+"Search icons…" = "アイコンを検索…";
+"Reset to Default" = "デフォルトに戻す";
+"Apply" = "適用";
+
+/* IconPicker - Categories */
+"Network" = "ネットワーク";
+"Server & Infrastructure" = "サーバー・インフラ";
+"Development" = "開発";
+"Environment" = "環境";
+"Shapes & Status" = "図形・ステータス";
+"Indicators" = "インジケータ";
+"Symbols" = "記号";
+"Buildings & Locations" = "建物・場所";
+"Cloud & Weather" = "クラウド・天気";
+"Transport" = "乗り物";
+"Communication" = "コミュニケーション";
+"Media" = "メディア";
+"People" = "人物";
+"Objects & Tools" = "オブジェクト・ツール";
+"Energy & Science" = "エネルギー・科学";
+"Nature & Animals" = "自然・動物";
+"Arrows & Directions" = "矢印・方向";

@@ -145,7 +145,8 @@ final class HostsDataStore: ObservableObject {
             .hostsFileSaved,
             .hostsFileRenamed,
             .hostsNodeNeedsUpdate,
-            .synchronizingStatusChanged
+            .synchronizingStatusChanged,
+            StatusBarIconStore.iconChangedNotification
         ]
 
         for name in rowRefreshNames {

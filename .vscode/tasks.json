@@ -15,9 +15,7 @@
         "-destination",
         "platform=macOS",
         "ARCHS=arm64",
-        "CODE_SIGN_IDENTITY=",
-        "CODE_SIGNING_REQUIRED=NO",
-        "CODE_SIGNING_ALLOWED=NO"
+        "CODE_SIGN_IDENTITY=-"
       ],
       "group": {
         "kind": "build",
@@ -35,7 +33,7 @@
       "type": "shell",
       "command": "open",
       "args": [
-        "$(xcodebuild -project 'Gas Mask.xcodeproj' -scheme 'Gas Mask' -configuration Debug -destination 'platform=macOS' ARCHS=arm64 CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -showBuildSettings 2>/dev/null | awk -F ' = ' '/BUILT_PRODUCTS_DIR/ {dir=$2} /FULL_PRODUCT_NAME/ {name=$2} END {print dir\"/\"name}')"
+        "$(xcodebuild -project 'Gas Mask.xcodeproj' -scheme 'Gas Mask' -configuration Debug -destination 'platform=macOS' ARCHS=arm64 CODE_SIGN_IDENTITY=- -showBuildSettings 2>/dev/null | awk -F ' = ' '/BUILT_PRODUCTS_DIR/ {dir=$2} /FULL_PRODUCT_NAME/ {name=$2} END {print dir\"/\"name}')"
       ],
       "presentation": {
         "reveal": "always",
@@ -57,9 +55,7 @@
         "-destination",
         "platform=macOS",
         "ARCHS=arm64",
-        "CODE_SIGN_IDENTITY=",
-        "CODE_SIGNING_REQUIRED=NO",
-        "CODE_SIGNING_ALLOWED=NO",
+        "CODE_SIGN_IDENTITY=-",
         "test"
       ],
       "group": "test",

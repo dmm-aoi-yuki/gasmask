@@ -24,6 +24,12 @@
 #import "HostsMenu.h"
 #import "Preferences.h"
 
+#if __has_include("Gas_Mask-Swift.h")
+#import "Gas_Mask-Swift.h"
+#else
+#import "Gas Mask-Swift.h"
+#endif
+
 @implementation Menulet
 
 - (void)awakeFromNib
@@ -50,6 +56,7 @@
                   context:NULL];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateName) name:ActivateFileNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateIcon) name:[StatusBarIconStore iconChangedNotification] object:NULL];
 
     if ([Preferences showNameInStatusBar]) {
         [self initTitleInBar];
@@ -62,11 +69,28 @@
 }
 
 -(void)updateName {
+    [self updateIcon];
     if (![Preferences showNameInStatusBar]) {
         return;
     }
     NSString *name = [[[HostsMainController defaultInstance] activeHostsFile] name];
     [[statusItem button] setTitle:name];
+}
+
+-(void)updateIcon {
+    NSString *iconName = [StatusBarIconStore iconNameForActiveHosts];
+    if (iconName) {
+        NSImage *sfImage = [NSImage imageWithSystemSymbolName:iconName accessibilityDescription:nil];
+        if (sfImage) {
+            NSImageSymbolConfiguration *config = [NSImageSymbolConfiguration configurationWithPointSize:14 weight:NSFontWeightSemibold];
+            NSImage *configured = [sfImage imageWithSymbolConfiguration:config];
+            [configured setSize:NSMakeSize(18, 18)];
+            [[statusItem button] setImage:configured];
+            return;
+        }
+    }
+    NSImage *defaultIcon = [NSImage imageNamed:@"menuIcon"];
+    [[statusItem button] setImage:defaultIcon];
 }
 
 -(void) removeTitleFromBar {

@@ -137,6 +137,7 @@
 		CC2B3C4D5E6F000100000042 /* HostsGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2B3C4D5E6F000100000012 /* HostsGroupTests.m */; };
 		CC2B3C4D5E6F000100000043 /* AbstractHostsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2B3C4D5E6F000100000013 /* AbstractHostsControllerTests.m */; };
 		CC2B3C4D5E6F000100000044 /* ApplicationControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2B3C4D5E6F000100000014 /* ApplicationControllerTests.m */; };
+		CC2B3C4D5E6F000100000046 /* HostsMenuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2B3C4D5E6F000100000016 /* HostsMenuTests.m */; };
 		CC2B3C4D5E6F000100000045 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		DD000002000000000000DD01 /* GlobalShortcutsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000001000000000000DD01 /* GlobalShortcutsTests.swift */; };
 		DD000004000000000000DD01 /* ShortcutRecorderViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000003000000000000DD01 /* ShortcutRecorderViewTests.swift */; };
@@ -146,6 +147,8 @@
 		FF000004000000000000FF01 /* AboutBoxPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000003000000000000FF01 /* AboutBoxPresenter.swift */; };
 		FF000006000000000000FF01 /* AboutBoxPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF000005000000000000FF01 /* AboutBoxPresenterTests.swift */; };
 		A10000010000000000001001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A10000020000000000001001 /* Localizable.strings */; };
+		AB000002000000000000AB01 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000001000000000000AB01 /* IconPickerView.swift */; };
+		AB000004000000000000AB01 /* StatusBarIconStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000003000000000000AB01 /* StatusBarIconStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -322,6 +325,8 @@
 		35FC65991114B12600BD18C3 /* launcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = launcher.m; path = Source/launcher.m; sourceTree = "<group>"; };
 		35FC65A71114B29A00BD18C3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3D979CFF69FCB07AB746051E /* StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatusBarView.swift; path = Source/Swift/StatusBarView.swift; sourceTree = "<group>"; };
+		AB000001000000000000AB01 /* IconPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconPickerView.swift; path = Source/Swift/IconPickerView.swift; sourceTree = "<group>"; };
+		AB000003000000000000AB01 /* StatusBarIconStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatusBarIconStore.swift; path = Source/Swift/StatusBarIconStore.swift; sourceTree = "<group>"; };
 		682E8D22B3228ABF7EBFDC08 /* EditorWindowPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorWindowPresenter.swift; path = Source/Swift/EditorWindowPresenter.swift; sourceTree = "<group>"; };
 		7C64FE428AF00EB0DEEAAEBD /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorView.swift; path = Source/Swift/EditorView.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; fileEncoding = 4; path = Info.plist; sourceTree = "<group>"; };
@@ -359,6 +364,7 @@
 		CC2B3C4D5E6F000100000012 /* HostsGroupTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostsGroupTests.m; sourceTree = "<group>"; };
 		CC2B3C4D5E6F000100000013 /* AbstractHostsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AbstractHostsControllerTests.m; sourceTree = "<group>"; };
 		CC2B3C4D5E6F000100000014 /* ApplicationControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplicationControllerTests.m; sourceTree = "<group>"; };
+		CC2B3C4D5E6F000100000016 /* HostsMenuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostsMenuTests.m; sourceTree = "<group>"; };
 		CC2B3C4D5E6F000100000020 /* Gas Mask Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gas Mask Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD2C7D6281D5A0139260D12A /* EditorToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorToolbar.swift; path = Source/Swift/EditorToolbar.swift; sourceTree = "<group>"; };
 		DD000001000000000000DD01 /* GlobalShortcutsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalShortcutsTests.swift; sourceTree = "<group>"; };
@@ -770,6 +776,8 @@
 				AA000011000000000000AAAA /* HostsDataStore.swift */,
 				CD2C7D6281D5A0139260D12A /* EditorToolbar.swift */,
 				3D979CFF69FCB07AB746051E /* StatusBarView.swift */,
+				AB000001000000000000AB01 /* IconPickerView.swift */,
+				AB000003000000000000AB01 /* StatusBarIconStore.swift */,
 				7C64FE428AF00EB0DEEAAEBD /* EditorView.swift */,
 				682E8D22B3228ABF7EBFDC08 /* EditorWindowPresenter.swift */,
 				AA000013000000000000AAAA /* HostsRowView.swift */,
@@ -825,6 +833,7 @@
 				CC2B3C4D5E6F000100000012 /* HostsGroupTests.m */,
 				CC2B3C4D5E6F000100000013 /* AbstractHostsControllerTests.m */,
 				CC2B3C4D5E6F000100000014 /* ApplicationControllerTests.m */,
+				CC2B3C4D5E6F000100000016 /* HostsMenuTests.m */,
 				313D8BA99EC0C9F97C402B58 /* HostsDataStoreNotificationTests.swift */,
 			);
 			name = GasMaskTests;
@@ -1039,6 +1048,8 @@
 				AA000012000000000000AAAA /* HostsDataStore.swift in Sources */,
 				4367D8248BF62656D4AC86D1 /* EditorToolbar.swift in Sources */,
 				DD2A255B82569B83ED993DC2 /* StatusBarView.swift in Sources */,
+				AB000002000000000000AB01 /* IconPickerView.swift in Sources */,
+				AB000004000000000000AB01 /* StatusBarIconStore.swift in Sources */,
 				7189711AD9756F2CBD4BCF22 /* EditorView.swift in Sources */,
 				3CC80FFF3B4950D6CB6B71D1 /* EditorWindowPresenter.swift in Sources */,
 				AA000014000000000000AAAA /* HostsRowView.swift in Sources */,
@@ -1086,6 +1097,7 @@
 				CC2B3C4D5E6F000100000042 /* HostsGroupTests.m in Sources */,
 				CC2B3C4D5E6F000100000043 /* AbstractHostsControllerTests.m in Sources */,
 				CC2B3C4D5E6F000100000044 /* ApplicationControllerTests.m in Sources */,
+				CC2B3C4D5E6F000100000046 /* HostsMenuTests.m in Sources */,
 				AA00000C000000000000AAAA /* URLValidatorTests.swift in Sources */,
 				AA00000E000000000000AAAA /* URLSheetPresenterTests.swift in Sources */,
 				AA000010000000000000AAAA /* URLSheetViewTests.swift in Sources */,

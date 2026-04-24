@@ -38,6 +38,8 @@
 @property (nonatomic, readonly) SPUUpdater *updater;
 
 - (IBAction)openPreferencesWindow:(id)sender;
+- (IBAction)flushChrome:(id)sender;
+- (IBAction)flushDNSCache:(id)sender;
 - (IBAction)displayAboutBox:(id)sender;
 - (IBAction)reportBugs:(id)sender;
 - (IBAction)donate:(id)sender;

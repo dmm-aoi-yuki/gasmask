@@ -19,15 +19,12 @@
  ***************************************************************************/
 
 #import "PrivilegedActions.h"
-#import <LocalAuthentication/LocalAuthentication.h>
 
 static BOOL authorized;
 static AuthorizationRef authorizationRef;
 
 @interface PrivilegedActions (Private)
 +(BOOL)execute:(const char *)command withArguments:(char *const *)arguments;
-+(BOOL)authenticateWithBiometrics:(NSString*)reason;
-+(BOOL)acquireAuthorizationSilently;
 +(BOOL)authorizeWithPasswordDialog:(NSString*)prompt;
 @end
 
@@ -82,74 +79,12 @@ static AuthorizationRef authorizationRef;
 
 + (BOOL)authorizeWithPrompt:(NSString*)prompt
 {
-	NSString *reason = prompt ?: @"Gas Mask needs administrator privileges to modify the hosts file.";
-
-	// Try Touch ID / biometric authentication first
-	if ([self authenticateWithBiometrics:reason]) {
-		// Biometric auth succeeded — try to acquire authorization silently
-		if ([self acquireAuthorizationSilently]) {
-			authorized = YES;
-			return authorized;
-		}
-	}
-
-	// Fall back to the standard password dialog
-	// (On macOS 14+ this dialog also offers Touch ID)
 	return [self authorizeWithPasswordDialog:prompt];
 }
 
 @end
 
 @implementation PrivilegedActions(Private)
-
-+(BOOL)authenticateWithBiometrics:(NSString*)reason
-{
-	LAContext *context = [[LAContext alloc] init];
-	NSError *error = nil;
-
-	if (![context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
-		logDebug(@"Biometric authentication not available: %@", error);
-		return NO;
-	}
-
-	__block BOOL success = NO;
-	dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-
-	[context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
-			localizedReason:reason
-					  reply:^(BOOL result, NSError *authError) {
-		if (!result) {
-			logDebug(@"Biometric authentication failed: %@", authError);
-		}
-		success = result;
-		dispatch_semaphore_signal(sema);
-	}];
-
-	dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-	return success;
-}
-
-+(BOOL)acquireAuthorizationSilently
-{
-	OSStatus status;
-	AuthorizationFlags flags = kAuthorizationFlagDefaults;
-
-	status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, flags, &authorizationRef);
-	if (status != errAuthorizationSuccess) {
-		logDebug(@"Failed to create AuthorizationRef");
-		return NO;
-	}
-
-	AuthorizationItem items = {kAuthorizationRightExecute, 0, NULL, 0};
-	AuthorizationRights rights = {1, &items};
-
-	flags = kAuthorizationFlagDefaults |
-	kAuthorizationFlagExtendRights |
-	kAuthorizationFlagPreAuthorize;
-
-	status = AuthorizationCopyRights(authorizationRef, &rights, kAuthorizationEmptyEnvironment, flags, NULL);
-	return status == errAuthorizationSuccess;
-}
 
 +(BOOL)authorizeWithPasswordDialog:(NSString*)prompt
 {
@@ -166,15 +101,12 @@ static AuthorizationRef authorizationRef;
 	AuthorizationItem items = {kAuthorizationRightExecute, 0, NULL, 0};
 	AuthorizationRights rights = {1, &items};
 
-	AuthorizationItem authPrompt = {kAuthorizationEnvironmentPrompt, [prompt length], (void *)[prompt UTF8String], 0};
-	AuthorizationEnvironment environment = { 1, &authPrompt };
-
 	flags = kAuthorizationFlagDefaults |
 	kAuthorizationFlagInteractionAllowed |
 	kAuthorizationFlagPreAuthorize |
 	kAuthorizationFlagExtendRights;
 
-	status = AuthorizationCopyRights(authorizationRef, &rights, &environment, flags, NULL);
+	status = AuthorizationCopyRights(authorizationRef, &rights, kAuthorizationEmptyEnvironment, flags, NULL);
 
 	if (status != errAuthorizationSuccess) {
 		logDebug(@"Failed to Authorize");

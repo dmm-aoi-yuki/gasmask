@@ -6,6 +6,7 @@ struct SidebarView: View {
 
     @State private var renameError: String?
     @State private var hostsToRemove: Hosts?
+    @State private var iconPickerHosts: Hosts?
 
     var body: some View {
         List(selection: $store.selectedHosts) {
@@ -51,6 +52,14 @@ struct SidebarView: View {
             }
         } message: {
             Text(String(format: NSLocalizedString("Are you sure you want to remove \"%@\"? The file will be moved to Trash.", comment: ""), hostsToRemove?.name() ?? ""))
+        }
+        .sheet(isPresented: Binding(
+            get: { iconPickerHosts != nil },
+            set: { if !$0 { iconPickerHosts = nil } }
+        )) {
+            if let hosts = iconPickerHosts {
+                IconPickerView(hosts: hosts)
+            }
         }
     }
 
@@ -144,6 +153,10 @@ struct SidebarView: View {
 
         Button("Rename") {
             store.renamingHosts = hosts
+        }
+
+        Button(NSLocalizedString("Set Status Bar Icon…", comment: "Context menu")) {
+            iconPickerHosts = hosts
         }
 
         Divider()

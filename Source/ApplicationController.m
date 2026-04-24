@@ -22,10 +22,12 @@
 #import "StructureConverter.h"
 #import "Preferences.h"
 #import "HostsMenu.h"
+#import "PrivilegedActions.h"
 #import "Gas_Mask-Swift.h"
 #import "LocalHostsController.h"
 #import "RemoteHostsController.h"
 #import "NotificationHelper.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <Sparkle/Sparkle.h>
 
@@ -112,6 +114,40 @@ static BOOL shouldConfigureSparkleUpdater(void)
 {
     [self showApplicationInDock];
 	[PreferencesPresenter showPreferences];
+}
+
+- (IBAction)flushChrome:(id)sender
+{
+	NSURL *chromeURL = [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"com.google.Chrome"];
+	if (!chromeURL) return;
+	NSURL *url = [NSURL URLWithString:@"chrome://net-internals/#sockets"];
+	NSWorkspaceOpenConfiguration *config = [NSWorkspaceOpenConfiguration configuration];
+	[[NSWorkspace sharedWorkspace] openURLs:@[url] withApplicationAtURL:chromeURL configuration:config completionHandler:nil];
+}
+
+- (IBAction)flushDNSCache:(id)sender
+{
+	LAContext *context = [[LAContext alloc] init];
+	NSError *error = nil;
+
+	if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+		[context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+				localizedReason:NSLocalizedString(@"Flush the DNS cache", @"Touch ID prompt for DNS cache flush")
+						  reply:^(BOOL success, NSError *authError) {
+			if (success) {
+				NSTask *task = [[NSTask alloc] init];
+				task.executableURL = [NSURL fileURLWithPath:@"/usr/bin/dscacheutil"];
+				task.arguments = @[@"-flushcache"];
+				[task launchAndReturnError:nil];
+			}
+		}];
+	} else {
+		// No biometrics available, run directly
+		NSTask *task = [[NSTask alloc] init];
+		task.executableURL = [NSURL fileURLWithPath:@"/usr/bin/dscacheutil"];
+		task.arguments = @[@"-flushcache"];
+		[task launchAndReturnError:nil];
+	}
 }
 
 - (IBAction)displayAboutBox:(id)sender
