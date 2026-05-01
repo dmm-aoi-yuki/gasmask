@@ -1362,12 +1362,13 @@
 			name = Release;
 		};
 		CC2B3C4D5E6F000100000002 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGNING_ALLOWED = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				DEVELOPMENT_TEAM = A25KY8P552;
+				isa = XCBuildConfiguration;
+				buildSettings = {
+					BUNDLE_LOADER = "$(TEST_HOST)";
+					CODE_SIGNING_ALLOWED = YES;
+					CODE_SIGN_IDENTITY = "Apple Development";
+					DEVELOPMENT_TEAM = A25KY8P552;
+					GENERATE_INFOPLIST_FILE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
@@ -1384,12 +1385,13 @@
 			name = Debug;
 		};
 		CC2B3C4D5E6F000100000003 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGNING_ALLOWED = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				DEVELOPMENT_TEAM = A25KY8P552;
+				isa = XCBuildConfiguration;
+				buildSettings = {
+					BUNDLE_LOADER = "$(TEST_HOST)";
+					CODE_SIGNING_ALLOWED = YES;
+					CODE_SIGN_IDENTITY = "Apple Development";
+					DEVELOPMENT_TEAM = A25KY8P552;
+					GENERATE_INFOPLIST_FILE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
