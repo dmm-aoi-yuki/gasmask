@@ -33,6 +33,11 @@
       "id": "mochdkxs-m2hxe93"
     }
   ],
-  "sections": ["Assets", "Release", "Debug"],
-  "commonOnNewTerminalCommand": "source .venv/bin/activate"
+  "sections": [
+    "Assets",
+    "Release",
+    "Debug"
+  ],
+  "commonOnNewTerminalCommand": "source .venv/bin/activate",
+  "newTerminalDelaySeconds": 6
 }

@@ -26,5 +26,6 @@
 + (BOOL)removeFile:(NSString*)path;
 + (BOOL)copyFile:(NSString*)source to:(NSString*)destination;
 + (BOOL)makeWritableForCurrentUser:(NSString*)path prompt:(NSString*)prompt;
++ (BOOL)writeContents:(NSString*)contents toFile:(NSString*)path;
 
 @end

@@ -73,7 +73,7 @@ jobs:
 
           cat >> appcast/appcast.xml << ITEM_EOF
               <item>
-                <title>Version ${VERSION}</title>
+                <title>Version ${VERSION} (${BUILD})</title>
                 <pubDate>$(date -u "+%a, %d %b %Y %H:%M:%S +0000")</pubDate>
                 <sparkle:version>${BUILD}</sparkle:version>
                 <sparkle:shortVersionString>${VERSION}</sparkle:shortVersionString>

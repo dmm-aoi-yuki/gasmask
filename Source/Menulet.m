@@ -82,10 +82,7 @@
     if (iconName) {
         NSImage *sfImage = [NSImage imageWithSystemSymbolName:iconName accessibilityDescription:nil];
         if (sfImage) {
-            NSImageSymbolConfiguration *config = [NSImageSymbolConfiguration configurationWithPointSize:14 weight:NSFontWeightSemibold];
-            NSImage *configured = [sfImage imageWithSymbolConfiguration:config];
-            [configured setSize:NSMakeSize(18, 18)];
-            [[statusItem button] setImage:configured];
+            [[statusItem button] setImage:sfImage];
             return;
         }
     }

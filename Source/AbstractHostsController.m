@@ -122,24 +122,13 @@
 - (BOOL)restoreHostsToOriginalLocation:(Hosts*)hosts
 {
     logDebug(@"Restoring hosts file \"%@\" to \"%@\"", [hosts name], HostsFileLocation);
-	
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSString *reason = NSLocalizedString(@"Gas Mask needs to restore your selected host file.\n", @"Authorization prompt for restoring hosts file");
-    if (![self ensureHostsFileIsWritable: manager withReason:reason]) {
-        logDebug(@"System hosts file is not writeable, aborting [file=\"%@\"]", HostsFileLocation);
-        return NO;
-    }
 
-	NSError *error = NULL;
-    NSString * result = [[hosts contentsOnDisk] stringByAppendingString:@"\n\n"];
-	[result writeToFile:HostsFileLocation atomically:NO encoding:NSUTF8StringEncoding error:&error];
-	if (error) {
-		logError(@"Failed to save hosts file: \"%@\" [error: %@]", [hosts name], error);
-		return NO;
-	}
-	
-	[Util flushDirectoryServiceCache];
-	return YES;
+    NSString *result = [[hosts contentsOnDisk] stringByAppendingString:@"\n\n"];
+    BOOL success = [self writeContentsToSystemHostsFile:result forHosts:hosts];
+    if (success) {
+        [Util flushDirectoryServiceCache];
+    }
+    return success;
 }
 
 - (Hosts*)activeHostsFile
@@ -286,43 +275,38 @@
 	}
 }
 
-- (BOOL) ensureHostsFileIsWritable:(NSFileManager*) manager withReason: (NSString*) reason
+- (BOOL)writeContentsToSystemHostsFile:(NSString*)contents forHosts:(Hosts*)hosts
 {
-    BOOL writable = NO;
+    NSFileManager *manager = [NSFileManager defaultManager];
+
     if ([manager isWritableFileAtPath:HostsFileLocation]) {
+        NSError *error = nil;
+        [contents writeToFile:HostsFileLocation atomically:NO encoding:NSUTF8StringEncoding error:&error];
+        if (error) {
+            logError(@"Failed to save hosts file: \"%@\" [error: %@]", [hosts name], error);
+            return NO;
+        }
         return YES;
     }
 
-    logDebug(@"System hosts file is not writeable: \"%@\"", HostsFileLocation);
-    writable = [PrivilegedActions
-                makeWritableForCurrentUser:HostsFileLocation
-                prompt:reason];
-    if (!writable) {
-        logError(@"Failed to make \"%@\" writable", HostsFileLocation);
+    logDebug(@"System hosts file is not writeable, using privileged write");
+    BOOL success = [PrivilegedActions writeContents:contents toFile:HostsFileLocation];
+    if (!success) {
+        logError(@"Failed to save hosts file via privileged write: \"%@\"", [hosts name]);
     }
-    return writable;
+    return success;
 }
 
 - (BOOL)saveHostsFileToOriginalLocation:(Hosts*)hosts
 {
 	logDebug(@"Saving hosts file \"%@\" to \"%@\"", [hosts name], HostsFileLocation);
-    
-	NSFileManager *manager = [NSFileManager defaultManager];
-    NSString *reason = NSLocalizedString(@"Gas Mask needs to modify system hosts file.\n", @"Authorization prompt for modifying system hosts file");
-    if (![self ensureHostsFileIsWritable: manager withReason:reason]) {
-        return NO;
-    }
 
-	NSError *error = NULL;
-    NSString * result = [[hosts contents] stringByAppendingString:@"\n\n"];
-	[result writeToFile:HostsFileLocation atomically:NO encoding:NSUTF8StringEncoding error:&error];
-	if (error) {
-		logError(@"Failed to save hosts file: \"%@\" [error: %@]", [hosts name], error);
-		return NO;
-	}
-	
-	[Util flushDirectoryServiceCache];
-	return YES;
+    NSString *result = [[hosts contents] stringByAppendingString:@"\n\n"];
+    BOOL success = [self writeContentsToSystemHostsFile:result forHosts:hosts];
+    if (success) {
+        [Util flushDirectoryServiceCache];
+    }
+    return success;
 }
 
 - (NSString*)groupName
